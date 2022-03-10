@@ -1,0 +1,26 @@
+.header {
+  background-color: $color-white;
+  box-shadow: $box-shadow-1;
+
+  ul {
+    padding: 1rem 0.5rem !important;
+
+    li {
+      svg {
+        font-size: 2.5rem;
+        color: $color-dark-2;
+      }
+      img {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        image-rendering: -webkit-optimize-contrast;
+      }
+    }
+  }
+}
+
+.main {
+  padding-top: 1rem;
+}
