@@ -5,11 +5,14 @@ $color-secondary: #3d42aa;
 $color-white: #ffffff;
 $color-dark: #000000;
 $color-dark-2: #383838;
+$color-gray: rgb(105, 104, 104);
+$color-room-card: #e9ffdb;
 
 $box-shadow-1: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
   rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 $box-shadow-2: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
   rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+$box-shadow-3: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -97,3 +100,5 @@ $max320: "only screen and (max-width: 320px)";
 
 @import "./Home.scss";
 @import "./base.scss";
+@import "./share.scss";
+@import "./rooms.scss";

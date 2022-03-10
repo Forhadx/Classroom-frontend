@@ -1,3 +1,5 @@
+import RoomLayout from "../../../components/Layout/RoomLayout";
+
 export default function SingleRoomPage() {
-  return <div>single room page</div>;
+  return <RoomLayout>room</RoomLayout>;
 }
