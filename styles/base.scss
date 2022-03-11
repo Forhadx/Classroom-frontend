@@ -1,6 +1,11 @@
 .header {
   background-color: $color-white;
   box-shadow: $box-shadow-1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 
   ul {
     padding: 1rem 0.5rem !important;
@@ -22,6 +27,6 @@
 }
 
 .main {
-  padding-top: 1rem;
+  padding-top: 100px;
   padding-bottom: 2rem;
 }

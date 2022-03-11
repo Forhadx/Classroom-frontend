@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
+import { RiContactsBook2Fill, RiTeamFill } from "react-icons/ri";
+import { BiCalendarCheck } from "react-icons/bi";
 
 export default function RoomLayout(props) {
   return (
@@ -16,13 +18,26 @@ export default function RoomLayout(props) {
         <Col lg="4">
           <ul className="room-sidebar">
             <li>
-              <Link href="/">Notes</Link>{" "}
+              <Link href="/rooms/1">
+                <a>
+                  <RiContactsBook2Fill /> Notes
+                </a>
+              </Link>
             </li>
             <li>
-              <Link href="/">Attendanc</Link>{" "}
+              <Link href="/rooms/1/attendance">
+                <a>
+                  <BiCalendarCheck /> Attendance
+                </a>
+              </Link>
             </li>
             <li>
-              <Link href="/">Student</Link>{" "}
+              <Link href="/rooms/1/students">
+                <a>
+                  <RiTeamFill />
+                  Student
+                </a>
+              </Link>
             </li>
           </ul>
         </Col>

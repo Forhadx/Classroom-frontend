@@ -39,8 +39,10 @@
   border-radius: 1rem 0 1rem 0;
   cursor: pointer;
   margin-bottom: 1.5rem;
+  transition: all 0.3s;
 
   &:hover {
+    transition: all 0.3s;
     box-shadow: none;
   }
 
@@ -119,6 +121,177 @@
 
 // room sidebar
 .room-sidebar {
-  border: 1px solid black;
-  padding: 1.5rem;
+  // border: 1px solid black;
+
+  padding: 1rem 0;
+  box-shadow: $box-shadow-4;
+  border-radius: 0.3rem;
+  background-color: $color-white;
+
+  li {
+    padding: 0.3rem 0.3rem 0.3rem 1.5rem;
+
+    &:hover {
+      background-color: #f3f2f2;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      font-size: 1.2rem;
+      color: $color-dark-2;
+
+      &:hover,
+      &.active {
+        color: $color-primary;
+      }
+
+      svg {
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+// Student table
+.student-table {
+  background-color: $color-white;
+  border-radius: 0.3rem;
+  box-shadow: $box-shadow-4;
+
+  & > :not(:first-child) {
+    border-top: 2px solid $color-primary-soft;
+  }
+  thead tr th {
+    padding: 0.8rem 1rem;
+    color: $color-dark-2;
+    font-size: 1.1rem;
+    text-transform: capitalize;
+
+    span {
+      text-transform: lowercase;
+    }
+
+    &:last-child {
+      text-align: center;
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        padding: 1rem 1rem;
+        color: $color-dark-2;
+        text-transform: capitalize;
+        font-size: 1rem;
+        font-weight: 500;
+
+        &:first-child {
+          padding: 0.5rem 1rem;
+        }
+        &:last-child {
+          text-align: center;
+        }
+
+        img {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          image-rendering: -webkit-optimize-contrast;
+        }
+
+        .remove-students {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+// Room NOTE
+.note-header {
+  border-radius: 0.3rem;
+  margin-bottom: 1.5rem;
+  box-shadow: $box-shadow-3;
+  transition: all 0.4s;
+  cursor: pointer;
+
+  &:hover {
+    // box-shadow: $box-shadow-2;
+    box-shadow: none;
+    border: 2px solid $color-primary;
+    transition: all 0.4s;
+  }
+
+  h6 {
+    font-weight: normal;
+    text-transform: capitalize;
+    color: $color-dark-2;
+
+    svg {
+      margin-right: 1rem;
+    }
+  }
+}
+
+// Note card
+.note-card {
+  border-radius: 0.3rem;
+  box-shadow: $box-shadow-1;
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+
+  p {
+    small {
+      color: $color-dark-2;
+      text-transform: capitalize;
+      font-weight: 400;
+    }
+  }
+
+  .note-card-description {
+    p,
+    span {
+      color: $color-gray !important;
+    }
+  }
+
+  h5 {
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+  }
+
+  .note-card-file {
+    box-shadow: $box-shadow-4;
+    width: 20rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+      box-shadow: $box-shadow-2;
+      transition: all 0.4s;
+    }
+
+    img {
+      height: 100%;
+      width: 15%;
+      image-rendering: -webkit-optimize-contrast;
+      margin-right: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+      margin-right: 0.5rem;
+    }
+
+    svg {
+      font-size: 1.5rem;
+      position: absolute;
+      right: 0.5rem;
+    }
+  }
 }
