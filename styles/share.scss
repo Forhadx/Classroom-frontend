@@ -33,6 +33,7 @@
   }
 }
 
+//========== room page ==========
 // room card
 .room-card {
   box-shadow: $box-shadow-3;
@@ -153,7 +154,7 @@
   }
 }
 
-// Student table
+// ============ Student table=========
 .student-table {
   background-color: $color-white;
   border-radius: 0.3rem;
@@ -208,19 +209,21 @@
   }
 }
 
-// Room NOTE
+//============= Notes ===========
+
+// Note header
 .note-header {
   border-radius: 0.3rem;
   margin-bottom: 1.5rem;
   box-shadow: $box-shadow-3;
-  transition: all 0.4s;
+  transition: all 0.2s;
   cursor: pointer;
 
   &:hover {
     // box-shadow: $box-shadow-2;
     box-shadow: none;
-    border: 2px solid $color-primary;
-    transition: all 0.4s;
+    border: 1px solid $color-primary;
+    transition: all 0.2s;
   }
 
   h6 {
@@ -230,6 +233,72 @@
 
     svg {
       margin-right: 1rem;
+    }
+  }
+}
+
+// note header
+.note-write-box {
+  margin-bottom: 1.5rem;
+
+  .fr-box {
+    margin-bottom: 0.5rem;
+
+    .fr-toolbar {
+      border: none;
+    }
+    .fr-wrapper {
+      border: none !important;
+      background-color: rgb(247, 245, 245) !important;
+    }
+    .fr-second-toolbar {
+      display: none;
+    }
+  }
+
+  #pdfFile {
+    margin-bottom: 1.5rem;
+    border-color: rgb(231, 231, 231);
+
+    &:focus {
+      outline: none;
+      border-color: rgb(231, 231, 231);
+      box-shadow: none;
+    }
+  }
+
+  button {
+    border-radius: 0.2rem;
+    padding: 0.3rem 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: $color-gray;
+  }
+
+  .cancel-btn {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin-right: 1rem;
+    transition: all 0.3s;
+
+    &:hover {
+      transition: all 0.3s;
+      background-color: rgb(231, 231, 231);
+    }
+  }
+
+  .save-btn {
+    border: none;
+    outline: none;
+    background-color: $color-primary;
+    color: $color-white;
+    transition: all 0.3s;
+
+    &:hover {
+      transition: all 0.3s;
+      background-color: $color-primary-dark;
     }
   }
 }
@@ -292,6 +361,131 @@
       font-size: 1.5rem;
       position: absolute;
       right: 0.5rem;
+    }
+  }
+}
+
+// =============== attendance =============
+
+.attendace-page {
+  border-radius: 0.3rem;
+  box-shadow: $box-shadow-1;
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  background-color: $color-white;
+
+  .attendance-page-header {
+    border-bottom: 1px solid $color-primary;
+
+    .header-btn {
+      border: none;
+      outline: none;
+      background-color: $color-white;
+      padding: 0.3rem 1rem;
+      margin-right: 1rem;
+      color: $color-gray;
+      font-weight: 500;
+      border-radius: 0.2rem;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+
+      &:hover {
+        border-bottom: 2px solid rgb(231, 231, 231);
+        background-color: rgb(231, 231, 231);
+      }
+
+      &.active {
+        color: $color-primary;
+        border-bottom: 2px solid $color-primary;
+      }
+    }
+  }
+
+  .attendance-page-form {
+    // padding: 2rem 0;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+
+    .select-class {
+      border: none;
+      outline: none;
+      width: 10rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.2rem;
+      box-shadow: $box-shadow-4;
+      color: $color-dark-2;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    h6 {
+      // font-weight: normal;
+      margin: 0;
+      color: $color-primary;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .history-table {
+    .student-table {
+      box-shadow: none;
+
+      & > :not(:first-child) {
+        border-top: 2px solid rgb(209, 207, 207);
+      }
+
+      .yes-icon {
+        font-size: 1.2rem;
+        color: $color-primary-soft;
+      }
+      .no-icon {
+        font-size: 1.2rem;
+        color: #ff4040;
+      }
+    }
+  }
+
+  .new-attendance {
+    padding-top: 1rem;
+
+    .student-table {
+      box-shadow: none;
+
+      & > :not(:first-child) {
+        border-top: 2px solid rgb(209, 207, 207);
+      }
+
+      button {
+        border: none;
+        outline: none;
+        width: 3.5rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.2rem;
+        color: $color-white;
+      }
+
+      .no-btn {
+        background-color: #ff6347;
+        transition: all 0.3s;
+
+        &:hover {
+          transition: all 0.3s;
+          background-color: #f04b2e;
+        }
+      }
+
+      .yes-btn {
+        background-color: #00ff00;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: #05ca05;
+          transition: all 0.3s;
+        }
+      }
     }
   }
 }

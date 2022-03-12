@@ -9,7 +9,7 @@ export default function NavigationPage() {
       <Container>
         <ul className="d-flex justify-content-between align-items-center">
           <li>
-            <Link href="/rooms">
+            <Link href="/faculty/rooms">
               <a>
                 <BsClipboardData />
               </a>

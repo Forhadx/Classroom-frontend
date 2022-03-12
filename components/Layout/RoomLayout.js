@@ -18,21 +18,21 @@ export default function RoomLayout(props) {
         <Col lg="4">
           <ul className="room-sidebar">
             <li>
-              <Link href="/rooms/1">
+              <Link href="/faculty/rooms/1">
                 <a>
                   <RiContactsBook2Fill /> Notes
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/rooms/1/attendance">
+              <Link href="/faculty/rooms/1/attendance">
                 <a>
                   <BiCalendarCheck /> Attendance
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/rooms/1/students">
+              <Link href="/faculty/rooms/1/students">
                 <a>
                   <RiTeamFill />
                   Student

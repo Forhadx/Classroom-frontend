@@ -8,6 +8,7 @@ export default function froalaEditor(props) {
     charCounterCount: true,
     fontFamilySelection: true,
     fontSizeSelection: true,
+    placeholderText: "write your new notes for students",
 
     toolbarButtons: {
       moreText: {
