@@ -15,7 +15,7 @@ export default function RoomsPage() {
   const router = useRouter();
 
   const singleRoomHandler = () => {
-    router.push("/faculty/rooms/1");
+    router.push("/student/rooms/1");
   };
 
   return (

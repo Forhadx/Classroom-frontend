@@ -1,8 +1,8 @@
 // import { useRouter } from "next/router";
-import RoomLayout from "../../../../components/Layout/RoomLayout";
 import { Table } from "react-bootstrap";
 import Image from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
+import FacultyLayout from "../../../../components/Layout/FacultyLayout";
 
 export default function StudentsPage() {
   // const router = useRouter();
@@ -10,7 +10,7 @@ export default function StudentsPage() {
   // console.log(router.query.roomId);
 
   return (
-    <RoomLayout>
+    <FacultyLayout>
       <Table hover className="student-table w-100">
         <thead>
           <tr>
@@ -81,6 +81,6 @@ export default function StudentsPage() {
           </tr>
         </tbody>
       </Table>
-    </RoomLayout>
+    </FacultyLayout>
   );
 }

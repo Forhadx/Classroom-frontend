@@ -1,10 +1,10 @@
-import RoomLayout from "../../../../components/Layout/RoomLayout";
 import { Row, Col, Card, Form } from "react-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
 import { FiDownload } from "react-icons/fi";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import parse from "html-react-parser";
+import FacultyLayout from "../../../../components/Layout/FacultyLayout.js";
 
 const FroalaEditor = dynamic(
   () => import("../../../../components/Editor/froalaEditor.js"),
@@ -16,7 +16,7 @@ export default function SingleRoomPage() {
   const [data, setData] = useState("");
 
   return (
-    <RoomLayout>
+    <FacultyLayout>
       <Row>
         <Col sm="12">
           {!isWrite ? (
@@ -85,6 +85,6 @@ export default function SingleRoomPage() {
           ))}
         </Col>
       </Row>
-    </RoomLayout>
+    </FacultyLayout>
   );
 }

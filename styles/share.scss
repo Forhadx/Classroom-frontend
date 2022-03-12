@@ -38,52 +38,52 @@
 .room-card {
   box-shadow: $box-shadow-3;
   border-radius: 1rem 0 1rem 0;
-  cursor: pointer;
   margin-bottom: 1.5rem;
   transition: all 0.3s;
+  position: relative;
 
   &:hover {
     transition: all 0.3s;
     box-shadow: none;
   }
 
+  .dropdown {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+
+    .dropdown-toggle {
+      &.btn {
+        border: none;
+        background-color: transparent !important;
+        padding: 0;
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+
+    .dropdown-menu {
+      .dropdown-item {
+        &:active {
+          background-color: $color-primary;
+        }
+      }
+    }
+  }
+
   .card-header {
-    position: relative;
     background-color: $color-room-card;
     border-radius: 1rem 0 0 0;
     padding: 1.5rem;
+    cursor: pointer;
 
     h5 {
       color: $color-dark-2;
     }
     p {
       color: $color-gray;
-    }
-
-    .dropdown {
-      position: absolute;
-      right: 0.5rem;
-      top: 0.5rem;
-
-      .dropdown-toggle {
-        &.btn {
-          border: none;
-          background-color: transparent !important;
-          padding: 0;
-        }
-
-        &::after {
-          display: none;
-        }
-      }
-
-      .dropdown-menu {
-        .dropdown-item {
-          &:active {
-            background-color: $color-primary;
-          }
-        }
-      }
     }
   }
   .card-footer {

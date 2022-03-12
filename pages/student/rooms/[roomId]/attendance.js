@@ -2,17 +2,18 @@ import { Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import HistoryAttendance from "../../../../components/Attendance/HistoryAttendance";
 import NewAttendance from "../../../../components/Attendance/NewAttendance";
-import FacultyLayout from "../../../../components/Layout/FacultyLayout";
+import StudentLayout from "../../../../components/Layout/StudentLayout";
+import StudentAttendance from "../../../../components/Attendance/StudentAttendance";
 
 export default function AttendancePage() {
   const [isHistory, setIsHistory] = useState(true);
 
   return (
-    <FacultyLayout>
+    <StudentLayout>
       <Row>
         <Col sm="12">
           <div className="attendace-page">
-            <div className="attendance-page-header">
+            {/* <div className="attendance-page-header">
               <button
                 className={`header-btn ${isHistory ? "active" : ""}`}
                 onClick={() => setIsHistory(true)}
@@ -25,12 +26,13 @@ export default function AttendancePage() {
               >
                 New Attendance
               </button>
-            </div>
+            </div> */}
 
-            {isHistory ? <HistoryAttendance /> : <NewAttendance />}
+            {/* {isHistory ? <HistoryAttendance /> : <NewAttendance />} */}
+            <StudentAttendance />
           </div>
         </Col>
       </Row>
-    </FacultyLayout>
+    </StudentLayout>
   );
 }

@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { RiContactsBook2Fill, RiTeamFill } from "react-icons/ri";
 import { BiCalendarCheck } from "react-icons/bi";
 
-export default function RoomLayout(props) {
+export default function FacultyLayout(props) {
   return (
     <Container>
       <Row>
