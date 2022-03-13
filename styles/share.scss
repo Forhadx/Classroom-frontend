@@ -489,3 +489,26 @@
     }
   }
 }
+
+.student-history-table {
+  .student-table {
+    box-shadow: none;
+
+    & > :not(:first-child) {
+      border-top: 2px solid rgb(209, 207, 207);
+    }
+
+    td {
+      color: $color-gray;
+    }
+
+    .yes-icon {
+      font-size: 1.2rem;
+      color: $color-primary-soft;
+    }
+    .no-icon {
+      font-size: 1.2rem;
+      color: #ff4040;
+    }
+  }
+}

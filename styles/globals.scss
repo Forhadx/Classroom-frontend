@@ -100,7 +100,6 @@ $max374: "only screen and (max-width: 374px)";
 $max375: "only screen and (max-width: 375px)";
 $max320: "only screen and (max-width: 320px)";
 
-@import "./Home.scss";
+@import "./auth.scss";
 @import "./base.scss";
 @import "./share.scss";
-@import "./rooms.scss";

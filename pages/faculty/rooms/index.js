@@ -1,12 +1,5 @@
 import Link from "next/link";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Dropdown,
-  DropdownButton,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
 import { useRouter } from "next/router";
