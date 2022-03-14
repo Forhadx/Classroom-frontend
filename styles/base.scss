@@ -30,3 +30,59 @@
   padding-top: 100px;
   padding-bottom: 2rem;
 }
+
+.starting-page {
+  .card {
+    padding: 2rem 4rem;
+
+    img {
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+
+    .starting-page-type {
+      width: 45%;
+      padding: 1.5rem 0;
+      margin-bottom: 3rem;
+      text-align: center;
+      box-shadow: $box-shadow-2;
+      border-radius: 0.3rem;
+
+      .user-logo {
+        margin-bottom: 1rem;
+        svg {
+          font-size: 1.5rem;
+          color: $color-dark-2;
+        }
+      }
+      h3 {
+        color: $color-dark-2;
+      }
+
+      &.active {
+        box-shadow: none;
+        border: 1px solid $color-primary;
+        .user-logo svg {
+          color: $color-primary;
+        }
+        h3 {
+          color: $color-primary;
+        }
+      }
+    }
+
+    .starting-page-auth {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        padding: 0.5rem 3rem;
+        border-radius: 1.5rem;
+      }
+    }
+  }
+}

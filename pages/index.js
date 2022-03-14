@@ -6,7 +6,7 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="auth-page">
+    <div className="starting-page">
       <Container>
         <Row>
           <Col md="8" className="offset-md-2">
@@ -15,20 +15,20 @@ export default function Home() {
                 <h1 className="text-center">Join as a Faculty or Student</h1>
                 <img src="/images/home-cover.png" alt="cover image" />
                 <div className="d-flex justify-content-between">
-                  <div className="auth-page-type active">
+                  <div className="starting-page-type active">
                     <div className="user-logo">
                       <FaUserTie />
                     </div>
                     <h3>Faculty</h3>
                   </div>
-                  <div className="auth-page-type">
+                  <div className="starting-page-type">
                     <div className="user-logo">
                       <FaUser />
                     </div>
                     <h3>Student</h3>
                   </div>
                 </div>
-                <div className="auth-page-auth">
+                <div className="starting-page-auth">
                   <button
                     className="btn-outline me-2"
                     onClick={() => router.push("/signup")}

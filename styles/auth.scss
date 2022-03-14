@@ -1,54 +1,46 @@
 .auth-page {
-  .card {
-    padding: 2rem 4rem;
+  padding-top: 1rem;
 
-    img {
-      width: 100%;
-    }
+  .auth-page-row {
+    padding: 5rem 0;
+    background-color: $color-white;
+    display: flex;
+    align-items: center;
+    box-shadow: $box-shadow-1;
+    border-radius: 0.2rem;
 
-    h1 {
-      margin-bottom: 2rem;
-    }
-
-    .auth-page-type {
-      width: 45%;
+    form {
       padding: 1.5rem 0;
-      margin-bottom: 3rem;
-      text-align: center;
-      box-shadow: $box-shadow-2;
+      box-shadow: $box-shadow-4;
       border-radius: 0.3rem;
 
-      .user-logo {
-        margin-bottom: 1rem;
-        svg {
-          font-size: 1.5rem;
-          color: $color-dark-2;
-        }
-      }
       h3 {
-        color: $color-dark-2;
+        text-align: center;
+        margin-bottom: 1.5rem;
       }
 
-      &.active {
-        box-shadow: none;
-        border: 1px solid $color-primary;
-        .user-logo svg {
-          color: $color-primary;
-        }
-        h3 {
-          color: $color-primary;
-        }
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-check-label {
+        margin-bottom: 1.5rem;
       }
     }
 
-    .auth-page-auth {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .auth-change {
+      margin-top: 1.5rem;
+      box-shadow: $box-shadow-4;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 1.1rem;
 
-      button {
-        padding: 0.5rem 3rem;
-        border-radius: 1.5rem;
+      a {
+        color: $color-primary;
+
+        &:hover {
+          color: $color-primary-soft;
+        }
       }
     }
   }
