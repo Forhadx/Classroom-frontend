@@ -10,7 +10,11 @@ export default function StudentLayout(props) {
         <Col>
           <div className="cover-img">
             <h2>Class 10 semester 1</h2>
-            <img src="/images/a.png" className="w-100 h-100" />
+            <img
+              src="/images/a.png"
+              alt="student cover"
+              className="w-100 h-100"
+            />
           </div>
         </Col>
       </Row>

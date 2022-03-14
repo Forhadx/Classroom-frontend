@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
@@ -30,8 +29,8 @@ export default function RoomsPage() {
         </Row>
         <Row>
           {[1, 2, 3, 4, 5].map((room, idx) => (
-            <Col lg="4">
-              <Card className="room-card" key={idx}>
+            <Col lg="4" key={idx}>
+              <Card className="room-card">
                 <Card.Header onClick={singleRoomHandler}>
                   <h5>Class 10 semester 1</h5>
                   <p>10 students</p>
