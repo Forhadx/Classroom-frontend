@@ -11,7 +11,7 @@ export default function NavigationPage() {
           <li>
             <Link href="/faculty/rooms">
               <a>
-                <BsClipboardData />
+                <BsClipboardData /> Classroom
               </a>
             </Link>
           </li>
