@@ -1,3 +1,9 @@
+import { Row, Col } from "react-bootstrap";
+
 export default function LoginPage() {
-  return <div>login</div>;
+  return (
+    <Row>
+      <Col>login</Col>
+    </Row>
+  );
 }
