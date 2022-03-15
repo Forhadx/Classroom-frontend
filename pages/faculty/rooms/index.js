@@ -14,7 +14,7 @@ export default function RoomsPage() {
     if (userType !== "faculty") {
       router.push("/");
     }
-  }, [userType]);
+  }, [userType, router]);
 
   const singleRoomHandler = () => {
     router.push("/faculty/rooms/1");

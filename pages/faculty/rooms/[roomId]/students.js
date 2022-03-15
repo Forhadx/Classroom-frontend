@@ -14,7 +14,7 @@ export default function StudentsPage() {
     if (userType !== "faculty") {
       router.push("/");
     }
-  }, [userType]);
+  }, [userType, router]);
   // const router = useRouter();
   // console.log(router);
   // console.log(router.query.roomId);

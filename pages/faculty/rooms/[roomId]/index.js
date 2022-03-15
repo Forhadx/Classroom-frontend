@@ -26,7 +26,7 @@ export default function SingleRoomPage() {
     if (userType !== "faculty") {
       router.push("/");
     }
-  }, [userType]);
+  }, [userType, router]);
 
   return (
     <FacultyLayout>

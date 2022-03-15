@@ -17,7 +17,7 @@ export default function AttendancePage() {
     if (userType !== "student") {
       router.push("/");
     }
-  }, [userType]);
+  }, [userType, router]);
 
   return (
     <StudentLayout>
