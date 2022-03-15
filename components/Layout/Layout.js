@@ -14,8 +14,8 @@ export default function Layout(props) {
 
   const AuthCtx = useContext(AuthContext);
   const { userType } = AuthCtx;
-  console.log("router: ", router.pathname);
-  console.log("user: ", userType);
+  // console.log("router: ", router.pathname);
+  // console.log("user: ", userType);
 
   // if (!userType && (pathName === "faculty" || pathName === "student")) {
   //   router.push("/");

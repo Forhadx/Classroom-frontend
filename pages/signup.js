@@ -1,11 +1,37 @@
 import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
 import Link from "next/link";
+import AuthContext from "../store/auth-context";
+import { useContext, useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function SignupPage() {
+  const AuthCtx = useContext(AuthContext);
+  const { authSuccess, userType } = AuthCtx;
+
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("signup");
+    AuthCtx.userSignup(
+      {
+        name: "max",
+        email: "as2s@sg.com",
+        password: "123456",
+        image: "i.jpg",
+      },
+      userType
+    );
   };
+
+  useEffect(() => {
+    if (authSuccess) {
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your account created succesfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [authSuccess]);
 
   return (
     <Container className="auth-page">

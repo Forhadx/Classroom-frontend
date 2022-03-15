@@ -1,24 +1,43 @@
 import Link from "next/link";
-import { useContext } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
 import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
 import AuthContext from "../store/auth-context";
 
 export default function LoginPage() {
-  const AuthCtx = useContext(AuthContext);
+  const router = useRouter();
 
-  console.log(AuthCtx.userType);
+  const AuthCtx = useContext(AuthContext);
+  const { authSuccess, userType, user } = AuthCtx;
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    AuthCtx.userLogin(
+      {
+        email: "f@g.com",
+        password: "123456",
+      },
+      userType
+    );
+  };
+
+  useEffect(() => {
+    if (user) {
+      router.push(`/${userType}/rooms`);
+    }
+  }, [user]);
 
   return (
     <Container className="auth-page">
       <Row className="auth-page-row">
         <Col lg="5" className="offset-1">
-          <Form>
+          <Form onSubmit={formSubmitHandler}>
             <h3>Login to Classroom</h3>
             <Row>
               <Form.Group as={Col} lg="10" className="form-group offset-1">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
-                  required
+                  // required
                   type="email"
                   placeholder="Enter your email"
                 />
@@ -30,7 +49,7 @@ export default function LoginPage() {
                   <Form.Control
                     type="password"
                     placeholder="Enter your password"
-                    required
+                    // required
                   />
                   <Form.Control.Feedback type="invalid">
                     Please choose a username.
@@ -42,7 +61,7 @@ export default function LoginPage() {
             <Form.Group>
               <Form.Check
                 className="offset-1"
-                required
+                // required
                 label="Agree to terms and conditions"
                 feedback="You must agree before submitting."
                 feedbackType="invalid"
