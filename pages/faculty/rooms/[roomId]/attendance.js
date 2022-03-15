@@ -12,13 +12,13 @@ export default function AttendancePage() {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
 
-  const { userType } = AuthCtx;
+  // const { userType } = AuthCtx;
 
-  useLayoutEffect(() => {
-    if (userType !== "faculty") {
-      router.push("/");
-    }
-  }, [userType, router]);
+  // useLayoutEffect(() => {
+  //   if (userType !== "faculty") {
+  //     router.push("/");
+  //   }
+  // }, [userType, router]);
 
   return (
     <FacultyLayout>

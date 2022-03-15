@@ -13,11 +13,11 @@ export default function SingleRoomPage() {
   const AuthCtx = useContext(AuthContext);
   const { userType } = AuthCtx;
 
-  useLayoutEffect(() => {
-    if (userType !== "student") {
-      router.push("/");
-    }
-  }, [userType, router]);
+  // useLayoutEffect(() => {
+  //   if (userType !== "student") {
+  //     router.push("/");
+  //   }
+  // }, [userType, router]);
 
   return (
     <StudentLayout>

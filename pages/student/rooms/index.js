@@ -10,11 +10,11 @@ export default function RoomsPage(props) {
   const AuthCtx = useContext(AuthContext);
   const { userType } = AuthCtx;
 
-  useLayoutEffect(() => {
-    if (userType !== "student") {
-      router.push("/");
-    }
-  }, [userType, router]);
+  // useLayoutEffect(() => {
+  //   if (userType !== "student") {
+  //     router.push("/");
+  //   }
+  // }, [userType, router]);
 
   const singleRoomHandler = () => {
     router.push("/student/rooms/1");

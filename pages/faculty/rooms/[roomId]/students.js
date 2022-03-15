@@ -11,11 +11,12 @@ export default function StudentsPage() {
   const AuthCtx = useContext(AuthContext);
   const { userType } = AuthCtx;
 
-  useLayoutEffect(() => {
-    if (userType !== "faculty") {
-      router.push("/");
-    }
-  }, [userType, router]);
+  // useLayoutEffect(() => {
+  //   if (userType !== "faculty") {
+  //     router.push("/");
+  //   }
+  // }, [userType, router]);
+
   // const router = useRouter();
   // console.log(router);
   // console.log(router.query.roomId);

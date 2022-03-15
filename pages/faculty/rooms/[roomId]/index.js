@@ -21,12 +21,12 @@ export default function SingleRoomPage() {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
 
-  const { userType } = AuthCtx;
-  useLayoutEffect(() => {
-    if (userType !== "faculty") {
-      router.push("/");
-    }
-  }, [userType, router]);
+  // const { userType } = AuthCtx;
+  // useLayoutEffect(() => {
+  //   if (userType !== "faculty") {
+  //     router.push("/");
+  //   }
+  // }, [userType, router]);
 
   return (
     <FacultyLayout>
