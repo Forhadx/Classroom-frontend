@@ -3,9 +3,20 @@ import { useState } from "react";
 import HistoryAttendance from "../../../../components/Attendance/HistoryAttendance";
 import NewAttendance from "../../../../components/Attendance/NewAttendance";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
+import { useContext, useLayoutEffect } from "react";
+import { useRouter } from "next/router";
+import AuthContext from "../../../../store/auth-context";
 
 export default function AttendancePage() {
   const [isHistory, setIsHistory] = useState(true);
+  const router = useRouter();
+  const AuthCtx = useContext(AuthContext);
+
+  useLayoutEffect(() => {
+    if (AuthCtx.userType !== "faculty") {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <FacultyLayout>

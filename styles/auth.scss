@@ -26,6 +26,10 @@
       .form-check-label {
         margin-bottom: 1.5rem;
       }
+
+      button:active {
+        background-color: $color-primary-dark;
+      }
     }
 
     .auth-change {

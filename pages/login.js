@@ -1,7 +1,13 @@
 import Link from "next/link";
+import { useContext } from "react";
 import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
+import AuthContext from "../store/auth-context";
 
 export default function LoginPage() {
+  const AuthCtx = useContext(AuthContext);
+
+  console.log(AuthCtx.userType);
+
   return (
     <Container className="auth-page">
       <Row className="auth-page-row">

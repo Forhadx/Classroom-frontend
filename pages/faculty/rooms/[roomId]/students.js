@@ -1,10 +1,19 @@
-// import { useRouter } from "next/router";
 import { Table } from "react-bootstrap";
 import Image from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
+import { useContext, useLayoutEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function StudentsPage() {
+  const router = useRouter();
+  const AuthCtx = useContext(AuthContext);
+
+  useLayoutEffect(() => {
+    if (AuthCtx.userType !== "faculty") {
+      router.push("/");
+    }
+  }, []);
   // const router = useRouter();
   // console.log(router);
   // console.log(router.query.roomId);
