@@ -8,12 +8,13 @@ import { useContext, useLayoutEffect } from "react";
 export default function RoomsPage(props) {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
+  const { userType } = AuthCtx;
 
   useLayoutEffect(() => {
-    if (AuthCtx.userType !== "student") {
+    if (userType !== "student") {
       router.push("/");
     }
-  }, []);
+  }, [userType]);
 
   const singleRoomHandler = () => {
     router.push("/student/rooms/1");

@@ -8,12 +8,13 @@ import { useRouter } from "next/router";
 export default function StudentsPage() {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
+  const { userType } = AuthCtx;
 
   useLayoutEffect(() => {
-    if (AuthCtx.userType !== "faculty") {
+    if (userType !== "faculty") {
       router.push("/");
     }
-  }, []);
+  }, [userType]);
   // const router = useRouter();
   // console.log(router);
   // console.log(router.query.roomId);

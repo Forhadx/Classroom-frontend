@@ -8,12 +8,13 @@ import AuthContext from "../../../store/auth-context";
 export default function RoomsPage() {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
+  const { userType } = AuthCtx;
 
   useLayoutEffect(() => {
-    if (AuthCtx.userType !== "faculty") {
+    if (userType !== "faculty") {
       router.push("/");
     }
-  }, []);
+  }, [userType]);
 
   const singleRoomHandler = () => {
     router.push("/faculty/rooms/1");

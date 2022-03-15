@@ -11,12 +11,13 @@ export default function AttendancePage() {
 
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
+  const { userType } = AuthCtx;
 
   useLayoutEffect(() => {
-    if (AuthCtx.userType !== "student") {
+    if (userType !== "student") {
       router.push("/");
     }
-  }, []);
+  }, [userType]);
 
   return (
     <StudentLayout>

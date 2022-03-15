@@ -11,12 +11,13 @@ import { useRouter } from "next/router";
 export default function SingleRoomPage() {
   const router = useRouter();
   const AuthCtx = useContext(AuthContext);
+  const { userType } = AuthCtx;
 
   useLayoutEffect(() => {
-    if (AuthCtx.userType !== "student") {
+    if (userType !== "student") {
       router.push("/");
     }
-  }, []);
+  }, [userType]);
 
   return (
     <StudentLayout>
