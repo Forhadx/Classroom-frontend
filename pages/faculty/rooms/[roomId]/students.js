@@ -4,6 +4,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
 import { useContext, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
+import AuthContext from "../../../../store/auth-context";
 
 export default function StudentsPage() {
   const router = useRouter();
