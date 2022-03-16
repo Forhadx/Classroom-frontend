@@ -5,9 +5,6 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import parse from "html-react-parser";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout.js";
-import { useContext, useLayoutEffect } from "react";
-import { useRouter } from "next/router";
-import AuthContext from "../../../../store/auth-context.js";
 
 const FroalaEditor = dynamic(
   () => import("../../../../components/Editor/froalaEditor.js"),
@@ -17,16 +14,6 @@ const FroalaEditor = dynamic(
 export default function SingleRoomPage() {
   const [isWrite, setIsWrite] = useState(false);
   const [data, setData] = useState("");
-
-  const router = useRouter();
-  const AuthCtx = useContext(AuthContext);
-
-  // const { userType } = AuthCtx;
-  // useLayoutEffect(() => {
-  //   if (userType !== "faculty") {
-  //     router.push("/");
-  //   }
-  // }, [userType, router]);
 
   return (
     <FacultyLayout>

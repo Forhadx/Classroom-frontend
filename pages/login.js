@@ -8,11 +8,13 @@ export default function LoginPage() {
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
-  const { authSuccess, userType, user } = AuthCtx;
+  const { userType, token, userLogin } = AuthCtx;
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    AuthCtx.userLogin(
+    console.log("lt: ", userType);
+
+    userLogin(
       {
         email: "f@g.com",
         password: "123456",
@@ -22,10 +24,11 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (user) {
+    console.log("login page?");
+    if (token) {
       router.push(`/${userType}/rooms`);
     }
-  }, [user]);
+  }, [token]);
 
   return (
     <Container className="auth-page">

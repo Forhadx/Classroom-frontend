@@ -1,5 +1,4 @@
 import NavigationPage from "./Navigation";
-import Link from "next/link";
 import AuthContext from "../../store/auth-context";
 import { useRouter } from "next/router";
 import { useContext, useState, useEffect, useLayoutEffect } from "react";
@@ -8,55 +7,41 @@ const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export default function Layout(props) {
+  const [flag, setFlag] = useState(true);
   const router = useRouter();
   const pathName = router.pathname.split("/")[1];
-  // const [isPush, setIsPush] = useState(false);
 
   const AuthCtx = useContext(AuthContext);
-  const { userType } = AuthCtx;
-  // console.log("router: ", router.pathname);
-  // console.log("user: ", userType);
-
-  // if (!userType && (pathName === "faculty" || pathName === "student")) {
-  //   router.push("/");
-  //   // setIsPush(true);
-  //   console.log("push?");
-  // }
+  const { facultyId, studentId, token, autoLogin } = AuthCtx;
 
   useIsomorphicLayoutEffect(() => {
-    if (
-      (userType === "faculty" && pathName === "student") ||
-      (userType === "student" && pathName === "faculty")
+    if (!token && flag) {
+      // console.log("1?");
+      autoLogin();
+      setFlag(false);
+    } else if (!token && (pathName === "student" || pathName === "faculty")) {
+      // console.log("2?");
+      router.push("/");
+    } else if (
+      token &&
+      (pathName === "" || pathName === "login" || pathName === "signup")
     ) {
+      // console.log("3?");
+      facultyId && router.push("/faculty/rooms");
+      studentId && router.push("/student/rooms");
+    } else if (
+      (facultyId && pathName === "student") ||
+      (studentId && pathName === "faculty")
+    ) {
+      // console.log("4?");
       router.push("/404");
     }
-    if (!userType && (pathName === "faculty" || pathName === "student")) {
-      router.push("/");
-    }
-  }, [pathName]);
+  }, [autoLogin, facultyId, token, studentId]);
 
   return (
     <>
       <NavigationPage />
       <main className="main">{props.children}</main>
-      {/* <div>
-        <Link href="/faculty/rooms">/faculty/rooms</Link>
-        <br />
-        <Link href="/faculty/rooms/1">/faculty/rooms/1</Link>
-        <br />
-        <Link href="/faculty/rooms/1/attendance">
-          /faculty/rooms/1/attendance
-        </Link>
-        <br />
-        <hr />
-        <Link href="/student/rooms">/student/rooms</Link>
-        <br />
-        <Link href="/student/rooms/1">/student/rooms/1</Link>
-        <br />
-        <Link href="/student/rooms/1/attendance">
-          /student/rooms/1/attendance
-        </Link>
-      </div> */}
     </>
   );
 }

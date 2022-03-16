@@ -1,24 +1,9 @@
 import { Row, Col, Card, Form } from "react-bootstrap";
-import { BsPencilSquare } from "react-icons/bs";
 import { FiDownload } from "react-icons/fi";
-import { useState } from "react";
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 import StudentLayout from "../../../../components/Layout/StudentLayout";
-import { useContext, useLayoutEffect } from "react";
-import AuthContext from "../../../../store/auth-context";
-import { useRouter } from "next/router";
 
 export default function SingleRoomPage() {
-  const router = useRouter();
-  const AuthCtx = useContext(AuthContext);
-  const { userType } = AuthCtx;
-
-  // useLayoutEffect(() => {
-  //   if (userType !== "student") {
-  //     router.push("/");
-  //   }
-  // }, [userType, router]);
-
   return (
     <StudentLayout>
       <Row>

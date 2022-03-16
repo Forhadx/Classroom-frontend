@@ -2,23 +2,30 @@ import { createContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext({
-  user: null,
+  facultyId: null,
+  studentId: null,
+  token: null,
   userType: null,
   authSuccess: false,
   error: false,
   addUserType: function (type) {},
   userSignup: function (userData, type) {},
   userLogin: function (data) {},
+  userLogout: function () {},
+  autoLogin: function () {},
 });
 
 export function AuthContextProvider(props) {
-  const [userData, setUserData] = useState(null);
-  const [userType, setUserType] = useState(null);
+  const [facultyId, setFacultyId] = useState(null);
+  const [studentId, setStudentId] = useState(null);
+  const [token, setToken] = useState(null);
+  const [userTypeIs, setUserTypeIs] = useState(null);
   const [isAuthSuccess, setIsAuthSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
   function addUserTypeHandler(type) {
-    setUserType(type);
+    console.log("type: ", type);
+    setUserTypeIs(type);
   }
 
   // SIGNUP
@@ -42,6 +49,7 @@ export function AuthContextProvider(props) {
 
   // LOGIN
   async function userLoginHandler(data, type) {
+    console.log("login: ", type);
     let URL = null;
     if (type === "faculty") {
       URL = "http://localhost:8000/api/f/login";
@@ -52,22 +60,85 @@ export function AuthContextProvider(props) {
     setIsError(false);
     try {
       let result = await axios.post(URL, data);
-      console.log("login: ", result);
-      // setIsAuthSuccess(true);
+      const expirationDate = new Date(
+        new Date().getTime() + 365 * 24 * 3600 * 1000
+      );
+      localStorage.setItem("token", result.data.token);
+      localStorage.setItem("expirationDate", expirationDate);
+      if (type === "faculty") {
+        localStorage.setItem("facultyId", result.data.facultyId);
+        setFacultyId(result.data.facultyId);
+      }
+      if (type === "student") {
+        localStorage.setItem("studentId", result.data.studentId);
+        setStudentId(result.data.studentId);
+      }
+      setToken(result.data.token);
+      await checkAuthTimeout(365 * 24 * 3600);
     } catch (err) {
       console.log(err.message);
       setIsError(true);
     }
   }
 
+  // LOGOUT
+  function userLogoutHandler() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("expirationDate");
+    localStorage.removeItem("facultyId");
+    localStorage.removeItem("studentId");
+    setToken(null);
+    setFacultyId(null);
+    setStudentId(null);
+    setUserTypeIs(null);
+  }
+
+  // AUTH TIMEOUT
+  async function checkAuthTimeout(expirationTime) {
+    setTimeout(() => {
+      userLogoutHandler();
+    }, expirationTime * 1000);
+  }
+
+  // AUTO LOGIN
+  async function autoLoginHandler() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      userLogoutHandler();
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      if (expirationDate <= new Date()) {
+        userLogoutHandler();
+      } else {
+        const facultyId = localStorage.getItem("facultyId");
+        const studentId = localStorage.getItem("studentId");
+        setToken(token);
+        setFacultyId(facultyId);
+        setStudentId(studentId);
+
+        facultyId && setUserTypeIs("faculty");
+        studentId && setUserTypeIs("student");
+
+        await checkAuthTimeout(
+          (expirationDate.getTime() - new Date().getTime()) / 1000
+        );
+      }
+    }
+  }
+
   const context = {
-    user: userData,
-    userType: userType,
+    facultyId: facultyId,
+    studentId: studentId,
+    token: token,
+    userType: userTypeIs,
+    // userType: "faculty",
     authSuccess: isAuthSuccess,
     error: isError,
     addUserType: addUserTypeHandler,
     userSignup: userSignupHandler,
     userLogin: userLoginHandler,
+    userLogout: userLogoutHandler,
+    autoLogin: autoLoginHandler,
   };
 
   return (

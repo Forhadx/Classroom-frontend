@@ -1,28 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useLayoutEffect } from "react";
+import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { BsClipboardData } from "react-icons/bs";
 import AuthContext from "../../store/auth-context";
 
 export default function NavigationPage() {
   const AuthCtx = useContext(AuthContext);
-  const { userType } = AuthCtx;
+  const { userType, userLogout, token } = AuthCtx;
 
-  // let logoLink = "/";
-
-  // // useEffect(() => {
-  // if (AuthCtx.userType) {
-  //   logoLink = `/${userType}/rooms`;
-  // }
-  // console.log("link: ", logoLink);
-  // }, [userType]);
+  const logoutHandler = () => {
+    userLogout();
+  };
 
   return (
     <header className="header">
       <Container>
         <ul className="d-flex justify-content-between align-items-center">
-          {AuthCtx.userType ? (
+          {userType ? (
             <li>
               <Link href={`/${userType}/rooms`}>
                 <a className="logo">
@@ -40,8 +35,8 @@ export default function NavigationPage() {
             </li>
           )}
 
-          {userType && (
-            <li>
+          {token && (
+            <li onClick={logoutHandler}>
               <Image
                 src="/images/forhad.jpg"
                 alt="user name"

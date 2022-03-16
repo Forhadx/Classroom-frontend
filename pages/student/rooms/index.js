@@ -1,20 +1,10 @@
+import { useRouter } from "next/router";
 import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
-import { useRouter } from "next/router";
-import AuthContext from "../../../store/auth-context";
-import { useContext, useLayoutEffect } from "react";
 
 export default function RoomsPage(props) {
   const router = useRouter();
-  const AuthCtx = useContext(AuthContext);
-  const { userType } = AuthCtx;
-
-  // useLayoutEffect(() => {
-  //   if (userType !== "student") {
-  //     router.push("/");
-  //   }
-  // }, [userType, router]);
 
   const singleRoomHandler = () => {
     router.push("/student/rooms/1");
