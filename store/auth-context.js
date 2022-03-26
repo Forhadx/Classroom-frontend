@@ -2,10 +2,10 @@ import { createContext, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext({
+  userType: null,
   facultyId: null,
   studentId: null,
   token: null,
-  userType: null,
   authSuccess: false,
   error: false,
   addUserType: function (type) {},
@@ -24,7 +24,6 @@ export function AuthContextProvider(props) {
   const [isError, setIsError] = useState(false);
 
   function addUserTypeHandler(type) {
-    console.log("type: ", type);
     setUserTypeIs(type);
   }
 

@@ -16,7 +16,9 @@ export default function LoginPage() {
 
     userLogin(
       {
-        email: "f@g.com",
+        // email: "a@a.com",
+        // password: "123456",
+        email: "f@f.com",
         password: "123456",
       },
       userType
@@ -35,7 +37,7 @@ export default function LoginPage() {
       <Row className="auth-page-row">
         <Col lg="5" className="offset-1">
           <Form onSubmit={formSubmitHandler}>
-            <h3>Login to Classroom</h3>
+            <h3>{`Login as ${userType}`}</h3>
             <Row>
               <Form.Group as={Col} lg="10" className="form-group offset-1">
                 <Form.Label>Email</Form.Label>

@@ -29,7 +29,7 @@ export default function Home() {
             <Card>
               <Card.Body>
                 <h1 className="text-center">Join as a Faculty or Student</h1>
-                <img src="/images/home-cover.png" alt="cover image" />
+                {/* <img src="/images/home-cover.png" alt="cover image" /> */}
                 <div className="d-flex justify-content-between">
                   {/* User select */}
                   <div

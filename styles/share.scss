@@ -120,6 +120,25 @@
   }
 }
 
+// add button
+.add-btn {
+  width: 3rem;
+  display: flex;
+  justify-content: center;
+
+  svg {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transition: all 0.3s;
+      font-size: 1.6rem;
+      color: $color-primary;
+    }
+  }
+}
+
 // room sidebar
 .room-sidebar {
   // border: 1px solid black;
@@ -511,4 +530,33 @@
       color: #ff4040;
     }
   }
+}
+
+//======== modal ========
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.685);
+  z-index: 500;
+  display: none;
+
+  &:open {
+    display: block;
+  }
+}
+.modal {
+  padding-top: 10rem;
+  // color: black;
+  width: 15rem;
+  // height: auto;
+  background-color: $color-white;
+  z-index: 1000;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 20%);
 }

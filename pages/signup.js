@@ -13,7 +13,7 @@ export default function SignupPage() {
     AuthCtx.userSignup(
       {
         name: "max",
-        email: "as2s@sg.com",
+        email: "f@f.com",
         password: "123456",
         image: "i.jpg",
       },
@@ -41,7 +41,7 @@ export default function SignupPage() {
         </Col>
         <Col lg="5" className="offset-1">
           <Form onSubmit={formSubmitHandler}>
-            <h3>Create New Account</h3>
+            <h3>{`Register as ${userType}`}</h3>
             <Row>
               <Form.Group as={Col} lg="10" className="form-group offset-1">
                 <Form.Label>Your Name</Form.Label>

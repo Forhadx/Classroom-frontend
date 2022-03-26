@@ -1,7 +1,9 @@
 import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
+import { IoIosAddCircleOutline } from "react-icons/io";
 import { useRouter } from "next/router";
+import Modal from "../../../components/UI/Modal/Modal";
 
 export default function RoomsPage() {
   const router = useRouter();
@@ -12,15 +14,22 @@ export default function RoomsPage() {
 
   return (
     <div className="room-page">
+      <Modal />
       <Container>
         <Row>
-          <Col sm="12">
+          <Col
+            sm="12"
+            className="d-flex justify-content-between align-items-center"
+          >
             <form className="search-box">
               <input type="text" placeholder="search your room" />
               <button>
                 <FcSearch />
               </button>
             </form>
+            <div className="add-btn">
+              <IoIosAddCircleOutline />
+            </div>
           </Col>
           <Col sm="12">
             <hr />
