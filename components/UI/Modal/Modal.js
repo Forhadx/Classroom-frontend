@@ -1,9 +1,12 @@
-export default function Modal() {
+export default function Modal(props) {
   return (
     <>
-      <div className="backdrop"></div>
-      <div className="modal">
-        <div className="modal-card">hi bro.</div>
+      <div
+        className={`backdrop ${props.showModal ? "open" : ""}`}
+        onClick={props.closeModalhandler}
+      ></div>
+      <div className={`modal ${props.showModal ? "open" : ""}`}>
+        {props.children}
       </div>
     </>
   );

@@ -56,9 +56,12 @@ ol {
   background-color: $color-primary;
   transition: all 0.2s;
   border-radius: 0.2rem;
+  box-shadow: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     transition: all 0.2s;
+    box-shadow: none;
     color: $color-white;
     background-color: $color-primary-dark;
   }

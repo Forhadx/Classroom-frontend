@@ -2,19 +2,52 @@ import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { RiArrowRightSFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import Modal from "../../../components/UI/Modal/Modal";
+import { useEffect, useState } from "react";
+import CreateRoom from "../../../components/Inputes/CreateRoom";
+import axios from "axios";
+import moment from "moment";
 
 export default function RoomsPage() {
+  const [allRooms, setAllRooms] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const router = useRouter();
+
+  useEffect(async () => {
+    try {
+      let result = await axios.get("http://localhost:8000/api/f/rooms");
+      setAllRooms(result.data.rooms);
+    } catch (err) {
+      setErrorMsg(err.response.data.message);
+    }
+  }, []);
 
   const singleRoomHandler = () => {
     router.push("/faculty/rooms/1");
   };
 
+  const closeModalhandler = () => {
+    setShowModal(false);
+  };
+
+  const addNewRoomHandler = (room) => {
+    setAllRooms([room, ...allRooms]);
+  };
+
   return (
     <div className="room-page">
-      <Modal />
+      {showModal && (
+        <Modal showModal={showModal} closeModalhandler={closeModalhandler}>
+          <CreateRoom
+            closeModalhandler={closeModalhandler}
+            addNewRoomHandler={addNewRoomHandler}
+          />
+        </Modal>
+      )}
       <Container>
         <Row>
           <Col
@@ -28,7 +61,7 @@ export default function RoomsPage() {
               </button>
             </form>
             <div className="add-btn">
-              <IoIosAddCircleOutline />
+              <IoIosAddCircleOutline onClick={() => setShowModal(true)} />
             </div>
           </Col>
           <Col sm="12">
@@ -37,16 +70,22 @@ export default function RoomsPage() {
           </Col>
         </Row>
         <Row>
-          {[1, 2, 3, 4, 5].map((room, idx) => (
+          {allRooms.map((room, idx) => (
             <Col lg="4" key={idx}>
               <Card className="room-card">
                 <Card.Header onClick={singleRoomHandler}>
-                  <h5>Class 10 semester 1</h5>
-                  <p>10 students</p>
+                  <h5>{room.roomName}</h5>
+                  <p>
+                    <small>
+                      <strong>Start: </strong>
+                      {moment(room.createdAt).format("ll")}
+                    </small>{" "}
+                  </p>
                 </Card.Header>
                 <Card.Footer>
                   <p>
-                    <strong>Start: </strong>23/2/2022
+                    <RiArrowRightSFill />
+                    {room.roomCode}
                   </p>
                 </Card.Footer>
 
@@ -56,13 +95,9 @@ export default function RoomsPage() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
+                    <Dropdown.Item href="/faculty/rooms/1">Open</Dropdown.Item>
+                    <Dropdown.Item>Update</Dropdown.Item>
+                    <Dropdown.Item>Delete</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Card>
