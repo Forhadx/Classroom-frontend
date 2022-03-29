@@ -3,12 +3,16 @@ import { useState } from "react";
 import HistoryAttendance from "../../../../components/Attendance/HistoryAttendance";
 import NewAttendance from "../../../../components/Attendance/NewAttendance";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
+import { useRouter } from "next/router";
 
 export default function AttendancePage() {
   const [isHistory, setIsHistory] = useState(true);
 
+  const router = useRouter();
+  const roomCode = router.query.roomCode;
+
   return (
-    <FacultyLayout>
+    <FacultyLayout roomCode={roomCode}>
       <Row>
         <Col sm="12">
           <div className="attendace-page">

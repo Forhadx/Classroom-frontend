@@ -2,8 +2,12 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { RiContactsBook2Fill, RiTeamFill } from "react-icons/ri";
 import { BiCalendarCheck } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 export default function FacultyLayout(props) {
+  const router = useRouter();
+  const currentRoute = router.pathname;
+
   return (
     <Container>
       <Row>
@@ -22,22 +26,38 @@ export default function FacultyLayout(props) {
         <Col lg="4">
           <ul className="room-sidebar">
             <li>
-              <Link href="/faculty/rooms/1">
-                <a>
+              <Link href={`/faculty/rooms/${props.roomCode}`}>
+                <a
+                  className={
+                    currentRoute === `/faculty/rooms/[roomCode]` ? "active" : ""
+                  }
+                >
                   <RiContactsBook2Fill /> Notes
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/faculty/rooms/1/attendance">
-                <a>
+              <Link href={`/faculty/rooms/${props.roomCode}/attendance`}>
+                <a
+                  className={
+                    currentRoute === `/faculty/rooms/[roomCode]/attendance`
+                      ? "active"
+                      : ""
+                  }
+                >
                   <BiCalendarCheck /> Attendance
                 </a>
               </Link>
             </li>
             <li>
-              <Link href="/faculty/rooms/1/students">
-                <a>
+              <Link href={`/faculty/rooms/${props.roomCode}/students`}>
+                <a
+                  className={
+                    currentRoute === `/faculty/rooms/[roomCode]/students`
+                      ? "active"
+                      : ""
+                  }
+                >
                   <RiTeamFill />
                   Student
                 </a>

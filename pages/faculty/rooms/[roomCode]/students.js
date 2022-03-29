@@ -2,10 +2,14 @@ import { Table } from "react-bootstrap";
 import Image from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
+import { useRouter } from "next/router";
 
 export default function StudentsPage() {
+  const router = useRouter();
+  const roomCode = router.query.roomCode;
+
   return (
-    <FacultyLayout>
+    <FacultyLayout roomCode={roomCode}>
       <Table hover className="student-table w-100">
         <thead>
           <tr>

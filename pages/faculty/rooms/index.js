@@ -2,7 +2,7 @@ import { Container, Row, Col, Card, Dropdown } from "react-bootstrap";
 import { FcSearch } from "react-icons/fc";
 import { RiMore2Fill } from "react-icons/ri";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { RiArrowRightSFill } from "react-icons/ri";
+import { MdContentCopy } from "react-icons/md";
 import { useRouter } from "next/router";
 import Modal from "../../../components/UI/Modal/Modal";
 import { useEffect, useState } from "react";
@@ -26,8 +26,8 @@ export default function RoomsPage() {
     }
   }, []);
 
-  const singleRoomHandler = () => {
-    router.push("/faculty/rooms/1");
+  const singleRoomHandler = (roomCode) => {
+    router.push(`/faculty/rooms/${roomCode}`);
   };
 
   const closeModalhandler = () => {
@@ -73,18 +73,20 @@ export default function RoomsPage() {
           {allRooms.map((room, idx) => (
             <Col lg="4" key={idx}>
               <Card className="room-card">
-                <Card.Header onClick={singleRoomHandler}>
+                <Card.Header
+                  onClick={singleRoomHandler.bind(null, room.roomCode)}
+                >
                   <h5>{room.roomName}</h5>
                   <p>
                     <small>
                       <strong>Start: </strong>
                       {moment(room.createdAt).format("ll")}
-                    </small>{" "}
+                    </small>
                   </p>
                 </Card.Header>
                 <Card.Footer>
                   <p>
-                    <RiArrowRightSFill />
+                    <MdContentCopy />
                     {room.roomCode}
                   </p>
                 </Card.Footer>
@@ -96,8 +98,8 @@ export default function RoomsPage() {
 
                   <Dropdown.Menu>
                     <Dropdown.Item href="/faculty/rooms/1">Open</Dropdown.Item>
-                    <Dropdown.Item>Update</Dropdown.Item>
-                    <Dropdown.Item>Delete</Dropdown.Item>
+                    {/* <Dropdown.Item>Update</Dropdown.Item>
+                    <Dropdown.Item>Delete</Dropdown.Item> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </Card>

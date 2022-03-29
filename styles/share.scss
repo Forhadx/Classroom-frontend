@@ -98,7 +98,7 @@
       align-items: center;
 
       svg {
-        font-size: 1.5rem;
+        font-size: 1rem;
         margin-right: 0.5rem;
       }
     }
@@ -338,8 +338,8 @@
 
   p {
     small {
-      color: $color-dark-2;
-      text-transform: capitalize;
+      color: $color-primary;
+      // text-transform: capitalize;
       font-weight: 400;
     }
   }
@@ -347,7 +347,7 @@
   .note-card-description {
     p,
     span {
-      color: $color-gray !important;
+      color: $color-dark-2;
     }
   }
 
@@ -369,6 +369,10 @@
     &:hover {
       box-shadow: $box-shadow-2;
       transition: all 0.4s;
+
+      svg {
+        color: $color-gray;
+      }
     }
 
     img {
@@ -381,6 +385,10 @@
     p {
       margin: 0;
       margin-right: 0.5rem;
+
+      small {
+        color: $color-gray !important;
+      }
     }
 
     svg {

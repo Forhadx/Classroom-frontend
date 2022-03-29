@@ -34,8 +34,8 @@ export default function CreateRoom(props) {
         roomData
       );
 
-      props.addNewRoomHandler(result.data.room);
       reset();
+      props.addNewRoomHandler(result.data.room);
       props.closeModalhandler();
     } catch (err) {
       setErrorMsg(err.response?.data.message);
