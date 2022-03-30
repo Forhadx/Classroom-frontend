@@ -9,6 +9,14 @@
 
   ul {
     li {
+      position: relative;
+
+      &:hover {
+        .logout {
+          display: block;
+        }
+      }
+
       a {
         padding: 1rem 0.5rem !important;
         display: flex;
@@ -33,6 +41,17 @@
         border-radius: 50%;
         object-fit: cover;
         image-rendering: -webkit-optimize-contrast;
+      }
+
+      .logout {
+        display: none;
+        background-color: $color-white;
+        padding: 0.5rem 1.2rem;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        box-shadow: $box-shadow-3;
+        cursor: pointer;
       }
     }
   }

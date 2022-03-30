@@ -36,13 +36,16 @@ export default function NavigationPage() {
           )}
 
           {token && (
-            <li onClick={logoutHandler}>
+            <li>
               <Image
                 src="/images/forhad.jpg"
                 alt="user name"
                 width={40}
                 height={40}
               />
+              <div className="logout" onClick={logoutHandler}>
+                Logout
+              </div>
             </li>
           )}
         </ul>

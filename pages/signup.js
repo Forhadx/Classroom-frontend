@@ -3,20 +3,58 @@ import Link from "next/link";
 import AuthContext from "../store/auth-context";
 import { useContext, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function SignupPage() {
   const AuthCtx = useContext(AuthContext);
-  const { authSuccess, userType } = AuthCtx;
+  const { authSuccess, userType, autoUserType } = AuthCtx;
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .required("name is required")
+      .min(3, "too small name, minimum 3 character")
+      .max(60, "too big name, maximum 60 character "),
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "! Password at least 6 character"),
+    image: Yup.mixed().test(
+      "file",
+      "Image is required (minimum 5MB)",
+      (value) => {
+        if (!value.length) {
+          return false;
+        }
+        return value[0].size <= 5000000;
+      }
+    ),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const formSubmitHandler = (data) => {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+    formData.append("image", data.image[0]);
     AuthCtx.userSignup(
-      {
-        name: "max",
-        email: "f@f.com",
-        password: "123456",
-        image: "i.jpg",
-      },
+      // {
+      //   name: "max",
+      //   email: "f@f.com",
+      //   password: "123456",
+      //   image: "i.jpg",
+      // },
+      formData,
       userType
     );
   };
@@ -31,6 +69,7 @@ export default function SignupPage() {
         timer: 1500,
       });
     }
+    autoUserType();
   }, [authSuccess]);
 
   return (
@@ -40,70 +79,68 @@ export default function SignupPage() {
           <img src="/images/signup.png" alt="signup cover" className="w-100" />
         </Col>
         <Col lg="5" className="offset-1">
-          <Form onSubmit={formSubmitHandler}>
-            <h3>{`Register as ${userType}`}</h3>
+          <form
+            className="auth-form-inputes"
+            onSubmit={handleSubmit(formSubmitHandler)}
+          >
+            <h3>
+              Register as <span>{userType}</span>
+            </h3>
             <Row>
-              <Form.Group as={Col} lg="10" className="form-group offset-1">
-                <Form.Label>Your Name</Form.Label>
-                <Form.Control
-                  // required
+              <Col lg="10" className="offset-1 mb-2">
+                <label>Your Name</label>
+                <input
                   type="text"
+                  {...register("name")}
                   placeholder="Eneter your name"
+                  className="form-control"
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} lg="10" className="form-group offset-1">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  // required
-                  type="email"
+                <p>
+                  <small>{errors.name?.message}</small>
+                </p>
+              </Col>
+              <Col lg="10" className="offset-1 mb-2">
+                <label>Email</label>
+                <input
+                  type="text"
+                  {...register("email")}
                   placeholder="Enter your email"
+                  className="form-control"
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} lg="10" className="form-group offset-1">
-                <Form.Label>Password</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter your password"
-                    // required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-              <Form.Group
-                as={Col}
-                lg="10"
-                controlId="validationCustom04"
-                className="form-group offset-1"
-              >
-                <Form.Label>Upload Image</Form.Label>
-                <Form.Control
+                <p>
+                  <small>{errors.email?.message}</small>
+                </p>
+              </Col>
+              <Col lg="10" className="offset-1 mb-2">
+                <label>Password</label>
+                <input
+                  type="password"
+                  {...register("password")}
+                  placeholder="Enter your password"
+                  className="form-control"
+                />
+                <p>
+                  <small>{errors.password?.message}</small>
+                </p>
+              </Col>
+              <Col lg="10" className="offset-1 mb-4">
+                <label>Upload Image</label>
+                <input
                   type="file"
-                  // required
+                  {...register("image")}
+                  accept="image/*"
+                  className="form-control"
                 />
-                <Form.Control.Feedback type="invalid">
-                  Please provide a valid city.
-                </Form.Control.Feedback>
-              </Form.Group>
+                <p>
+                  <small>{errors.image?.message}</small>
+                </p>
+              </Col>
             </Row>
 
-            <Form.Group>
-              <Form.Check
-                className="offset-1"
-                // required
-                label="Agree to terms and conditions"
-                feedback="You must agree before submitting."
-                feedbackType="invalid"
-              />
-            </Form.Group>
             <Button type="submit" varient="primary" className=" offset-1">
               Create Account
             </Button>
-          </Form>
+          </form>
           <p className="auth-change">
             Already have an Account? <Link href="/login">login</Link>
           </p>

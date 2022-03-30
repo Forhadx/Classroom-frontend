@@ -22,7 +22,7 @@ export default function RoomsPage() {
       let result = await axios.get("http://localhost:8000/api/f/rooms");
       setAllRooms(result.data.rooms);
     } catch (err) {
-      setErrorMsg(err.response.data.message);
+      setErrorMsg(err.response?.data.message);
     }
   }, []);
 

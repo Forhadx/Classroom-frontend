@@ -3,79 +3,92 @@ import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
 import AuthContext from "../store/auth-context";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 
 export default function LoginPage() {
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
-  const { userType, token, userLogin } = AuthCtx;
+  const { userType, token, userLogin, autoUserType } = AuthCtx;
 
-  const formSubmitHandler = (e) => {
-    e.preventDefault();
-    console.log("lt: ", userType);
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required("Email is required").email("Email is invalid"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(6, "! Password at least 6 character"),
+  });
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const formSubmitHandler = (data) => {
     userLogin(
       {
-        // email: "a@a.com",
-        // password: "123456",
-        email: "f@f.com",
-        password: "123456",
+        email: data.email,
+        password: data.password,
       },
       userType
     );
   };
 
   useEffect(() => {
-    console.log("login page?");
+    // console.log("login page?");
     if (token) {
       router.push(`/${userType}/rooms`);
     }
+    autoUserType();
   }, [token]);
 
   return (
     <Container className="auth-page">
       <Row className="auth-page-row">
         <Col lg="5" className="offset-1">
-          <Form onSubmit={formSubmitHandler}>
-            <h3>{`Login as ${userType}`}</h3>
+          <form
+            className="auth-form-inputes"
+            onSubmit={handleSubmit(formSubmitHandler)}
+          >
+            <h3>
+              Login as <span>{userType}</span>
+            </h3>
             <Row>
-              <Form.Group as={Col} lg="10" className="form-group offset-1">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  // required
-                  type="email"
+              <Col lg="10" className="offset-1 mb-2">
+                <label>Email</label>
+                <input
+                  type="text"
+                  {...register("email")}
                   placeholder="Enter your email"
+                  className="form-control"
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} lg="10" className="form-group offset-1">
-                <Form.Label>Password</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    type="password"
-                    placeholder="Enter your password"
-                    // required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                  </Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
+                <p>
+                  <small>{errors.email?.message}</small>
+                </p>
+              </Col>
+              <Col lg="10" className="offset-1 mb-2">
+                <label>Password</label>
+                <input
+                  type="password"
+                  {...register("password")}
+                  placeholder="Enter your password"
+                  className="form-control"
+                />
+                <p>
+                  <small>{errors.password?.message}</small>
+                </p>
+              </Col>
             </Row>
 
-            <Form.Group>
-              <Form.Check
-                className="offset-1"
-                // required
-                label="Agree to terms and conditions"
-                feedback="You must agree before submitting."
-                feedbackType="invalid"
-              />
-            </Form.Group>
             <Button type="submit" varient="primary" className=" offset-1">
               Login
             </Button>
-          </Form>
+          </form>
           <p className="auth-change">
             New at Classroom? <Link href="/signup">Create Account</Link>{" "}
           </p>

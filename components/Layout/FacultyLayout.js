@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Col, Container, Row } from "react-bootstrap";
 import { RiContactsBook2Fill, RiTeamFill } from "react-icons/ri";
 import { BiCalendarCheck } from "react-icons/bi";
+import { MdContentCopy } from "react-icons/md";
 import { useRouter } from "next/router";
 
 export default function FacultyLayout(props) {
@@ -19,6 +20,10 @@ export default function FacultyLayout(props) {
               alt="faculty-cover"
               className="w-100 h-100"
             />
+            <div className="room-code">
+              <MdContentCopy />
+              {props.roomCode}
+            </div>
           </div>
         </Col>
       </Row>

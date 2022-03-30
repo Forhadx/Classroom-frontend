@@ -10,6 +10,34 @@ export default function StudentsPage() {
 
   return (
     <FacultyLayout roomCode={roomCode}>
+      <Table className="student-table student-request-table w-100">
+        <thead>
+          <tr>
+            <th>You have student request</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div className="d-flex align-items-center">
+                <Image
+                  src="/images/forhad.jpg"
+                  alt="student"
+                  width={40}
+                  height={40}
+                />
+                <span className="ms-3">Md Shamsul Haque Forhad</span>
+              </div>
+            </td>
+            <td>
+              <button className="cancel-btn btn">Cancel</button>
+              <button className="accept-btn btn">Accept</button>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+
       <Table hover className="student-table w-100">
         <thead>
           <tr>

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext({
@@ -13,6 +13,7 @@ const AuthContext = createContext({
   userLogin: function (data) {},
   userLogout: function () {},
   autoLogin: function () {},
+  autoUserType: function () {},
 });
 
 export function AuthContextProvider(props) {
@@ -23,8 +24,19 @@ export function AuthContextProvider(props) {
   const [isAuthSuccess, setIsAuthSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // USER TYPE
   function addUserTypeHandler(type) {
     setUserTypeIs(type);
+    localStorage.setItem("userType", type);
+  }
+
+  // AUTO USER TYPE
+  function autoUserTypeHandler() {
+    const userType = localStorage.getItem("userType");
+
+    if (userType) {
+      setUserTypeIs(userType);
+    }
   }
 
   // SIGNUP
@@ -48,7 +60,6 @@ export function AuthContextProvider(props) {
 
   // LOGIN
   async function userLoginHandler(data, type) {
-    console.log("login: ", type);
     let URL = null;
     if (type === "faculty") {
       URL = "http://localhost:8000/api/f/login";
@@ -89,7 +100,6 @@ export function AuthContextProvider(props) {
     setToken(null);
     setFacultyId(null);
     setStudentId(null);
-    setUserTypeIs(null);
   }
 
   // AUTH TIMEOUT
@@ -102,6 +112,7 @@ export function AuthContextProvider(props) {
   // AUTO LOGIN
   async function autoLoginHandler() {
     const token = localStorage.getItem("token");
+
     if (!token) {
       userLogoutHandler();
     } else {
@@ -130,7 +141,6 @@ export function AuthContextProvider(props) {
     studentId: studentId,
     token: token,
     userType: userTypeIs,
-    // userType: "faculty",
     authSuccess: isAuthSuccess,
     error: isError,
     addUserType: addUserTypeHandler,
@@ -138,6 +148,7 @@ export function AuthContextProvider(props) {
     userLogin: userLoginHandler,
     userLogout: userLogoutHandler,
     autoLogin: autoLoginHandler,
+    autoUserType: autoUserTypeHandler,
   };
 
   return (
