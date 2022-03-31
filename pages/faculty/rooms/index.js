@@ -76,7 +76,7 @@ export default function RoomsPage() {
           </Col>
           <Col sm="12">
             <hr />
-            <p>You have created 8 rooms.</p>
+            <p>{`You have created ${allRooms.length} rooms.`}</p>
           </Col>
         </Row>
         <Row>

@@ -1,113 +1,52 @@
-import { Table } from "react-bootstrap";
-import Image from "next/image";
-import { RiDeleteBinLine } from "react-icons/ri";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout";
 import { useRouter } from "next/router";
+import StudentRequest from "../../../../components/StudetDetails/StudentRequest";
+import RoomStudents from "../../../../components/StudetDetails/RoomStudents";
+import { useEffect, useState } from "react";
+import axios from "../../../../util/axios";
 
 export default function StudentsPage() {
+  const [acitveStudents, setActiveStudents] = useState([]);
+  const [requestStudents, setRequestStudenst] = useState([]);
+
   const router = useRouter();
+  // console.log("r ", router);
   const roomCode = router.query.roomCode;
+
+  useEffect(async () => {
+    if (roomCode) {
+      try {
+        const result = await axios.post("/api/f/team/students", { roomCode });
+        // console.log("data: ", result.data);
+        let students = result.data.roomStudents.students;
+        let actStd = [];
+        let rqstStd = [];
+        for (let key in students) {
+          // console.log("k: ", key);
+          // console.log("d: ", students[key]);
+          if (students[key].teamList.isAccept) {
+            // setActiveStudents([...acitveStudents, students[key]]);
+            actStd.push(students[key]);
+          } else {
+            rqstStd.push(students[key]);
+            // setRequestStudenst([...requestStudents, students[key]]);
+          }
+        }
+        setActiveStudents(actStd);
+        setRequestStudenst(rqstStd);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }, [roomCode]);
+
+  // console.log("active : ", acitveStudents);
+  // console.log("requst : ", requestStudents);
 
   return (
     <FacultyLayout roomCode={roomCode}>
-      <Table className="student-table student-request-table w-100">
-        <thead>
-          <tr>
-            <th>You have student request</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div className="d-flex align-items-center">
-                <Image
-                  src="/images/forhad.jpg"
-                  alt="student"
-                  width={40}
-                  height={40}
-                />
-                <span className="ms-3">Md Shamsul Haque Forhad</span>
-              </div>
-            </td>
-            <td>
-              <button className="cancel-btn btn">Cancel</button>
-              <button className="accept-btn btn">Accept</button>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-
-      <Table hover className="student-table w-100">
-        <thead>
-          <tr>
-            <th>20 students</th>
-            <th>
-              Presents(<span>out of 20</span>)
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div className="d-flex align-items-center">
-                <Image
-                  src="/images/forhad.jpg"
-                  alt="student"
-                  width={40}
-                  height={40}
-                />
-                <span className="ms-3">Md Shamsul Haque Forhad</span>
-              </div>
-            </td>
-            <td>12</td>
-            <td>
-              <div className="remove-students">
-                <RiDeleteBinLine />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="d-flex align-items-center">
-                <Image
-                  src="/images/forhad.jpg"
-                  alt="student"
-                  width={40}
-                  height={40}
-                />
-                <span className="ms-3">Md Shamsul Haque Forhad</span>
-              </div>
-            </td>
-            <td>12</td>
-            <td>
-              <div className="remove-students">
-                <RiDeleteBinLine />
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div className="d-flex align-items-center">
-                <Image
-                  src="/images/forhad.jpg"
-                  alt="student"
-                  width={40}
-                  height={40}
-                />
-                <span className="ms-3">Md Shamsul Haque Forhad</span>
-              </div>
-            </td>
-            <td>12</td>
-            <td>
-              <div className="remove-students">
-                <RiDeleteBinLine />
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
+      <StudentRequest students={requestStudents} />
+      <RoomStudents students={acitveStudents} />
     </FacultyLayout>
   );
 }
