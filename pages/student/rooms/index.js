@@ -21,7 +21,7 @@ export default function RoomsPage() {
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
 
-  useEffect(async () => {
+  useEffect(() => {
     if (token) {
       try {
         // let result = await axios.get("/api/f/rooms", {

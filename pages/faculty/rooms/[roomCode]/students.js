@@ -13,30 +13,33 @@ export default function StudentsPage() {
   // console.log("r ", router);
   const roomCode = router.query.roomCode;
 
-  useEffect(async () => {
+  useEffect(() => {
     if (roomCode) {
-      try {
-        const result = await axios.post("/api/f/team/students", { roomCode });
-        // console.log("data: ", result.data);
-        let students = result.data.roomStudents.students;
-        let actStd = [];
-        let rqstStd = [];
-        for (let key in students) {
-          // console.log("k: ", key);
-          // console.log("d: ", students[key]);
-          if (students[key].teamList.isAccept) {
-            // setActiveStudents([...acitveStudents, students[key]]);
-            actStd.push(students[key]);
-          } else {
-            rqstStd.push(students[key]);
-            // setRequestStudenst([...requestStudents, students[key]]);
+      const teamStudents = async () => {
+        try {
+          const result = await axios.post("/api/f/team/students", { roomCode });
+          // console.log("data: ", result.data);
+          let students = result.data.roomStudents.students;
+          let actStd = [];
+          let rqstStd = [];
+          for (let key in students) {
+            // console.log("k: ", key);
+            // console.log("d: ", students[key]);
+            if (students[key].teamList.isAccept) {
+              // setActiveStudents([...acitveStudents, students[key]]);
+              actStd.push(students[key]);
+            } else {
+              rqstStd.push(students[key]);
+              // setRequestStudenst([...requestStudents, students[key]]);
+            }
           }
+          setActiveStudents(actStd);
+          setRequestStudenst(rqstStd);
+        } catch (err) {
+          console.log(err);
         }
-        setActiveStudents(actStd);
-        setRequestStudenst(rqstStd);
-      } catch (err) {
-        console.log(err);
-      }
+        teamStudents();
+      };
     }
   }, [roomCode]);
 

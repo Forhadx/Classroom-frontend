@@ -21,18 +21,21 @@ export default function RoomsPage() {
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
 
-  useEffect(async () => {
+  useEffect(() => {
     if (token) {
-      try {
-        let result = await axios.get("/api/f/rooms", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        setAllRooms(result.data.rooms);
-      } catch (err) {
-        setErrorMsg(err.response?.data.message);
-      }
+      const fetchRooms = async () => {
+        try {
+          let result = await axios.get("/api/f/rooms", {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          });
+          setAllRooms(result.data.rooms);
+        } catch (err) {
+          setErrorMsg(err.response?.data.message);
+        }
+      };
+      fetchRooms();
     }
   }, [token]);
 

@@ -21,22 +21,27 @@ export default function SingleRoomPage() {
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
 
-  useEffect(async () => {
+  useEffect(() => {
     if (roomCode) {
-      try {
-        let result = await axios.post(
-          "/api/f/notes",
-          {
-            roomCode: roomCode,
-          },
-          {
-            headers: {
-              Authorization: "Bearer " + token,
+      const fetchNotes = async () => {
+        try {
+          let result = await axios.post(
+            "/api/f/notes",
+            {
+              roomCode: roomCode,
             },
-          }
-        );
-        setAllNotes(result.data.notes);
-      } catch (err) {}
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          setAllNotes(result.data.notes);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+      fetchNotes();
     }
   }, [roomCode]);
 

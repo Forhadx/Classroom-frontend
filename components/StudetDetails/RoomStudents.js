@@ -3,8 +3,6 @@ import Image from "next/image";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 export default function RoomStudents(props) {
-  console.log(props.students);
-
   return (
     <Table hover className="student-table w-100">
       <thead>
