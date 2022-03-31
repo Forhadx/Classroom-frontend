@@ -1,14 +1,15 @@
 import { Row, Col, Card } from "react-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
 import { FiDownload } from "react-icons/fi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import parse from "html-react-parser";
 import FacultyLayout from "../../../../components/Layout/FacultyLayout.js";
 import NoteUpload from "../../../../components/Inputes/NoteUpload.js";
-import axios from "axios";
+import axios from "../../../../util/axios";
 import moment from "moment";
 import download from "downloadjs";
 import { useRouter } from "next/router";
+import AuthContext from "../../../../store/auth-context.js";
 
 export default function SingleRoomPage() {
   const [isWrite, setIsWrite] = useState(false);
@@ -17,24 +18,35 @@ export default function SingleRoomPage() {
   const router = useRouter();
   const roomCode = router.query.roomCode;
 
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
+
   useEffect(async () => {
     if (roomCode) {
       try {
-        let result = await axios.post("http://localhost:8000/api/f/notes", {
-          roomCode: roomCode,
-        });
+        let result = await axios.post(
+          "/api/f/notes",
+          {
+            roomCode: roomCode,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
         setAllNotes(result.data.notes);
       } catch (err) {}
     }
   }, [roomCode]);
 
   const downloadPdfHandler = async (note) => {
-    let result = await axios.get(
-      `http://localhost:8000/api/f/note/download/${note.id}`,
-      {
-        responseType: "blob",
-      }
-    );
+    let result = await axios.get(`/api/f/note/download/${note.id}`, {
+      responseType: "blob",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     const split = note.file.split("/");
     const filename = split[split.length - 1];
     return download(result.data, filename, "application/pdf");

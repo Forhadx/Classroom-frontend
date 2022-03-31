@@ -2,11 +2,15 @@ import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import axios from "axios";
-import { useState } from "react";
+import axios from "../../util/axios";
+import { useState, useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
 export default function CreateRoom(props) {
   const [errorMsg, setErrorMsg] = useState("");
+
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
 
   const validationSchema = Yup.object().shape({
     roomName: Yup.string()
@@ -29,10 +33,11 @@ export default function CreateRoom(props) {
       roomName: data.roomName,
     };
     try {
-      const result = await axios.post(
-        "http://localhost:8000/api/f/room",
-        roomData
-      );
+      const result = await axios.post("/api/f/room", roomData, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
 
       reset();
       props.addNewRoomHandler(result.data.room);

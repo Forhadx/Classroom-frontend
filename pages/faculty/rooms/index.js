@@ -5,10 +5,11 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdContentCopy } from "react-icons/md";
 import { useRouter } from "next/router";
 import Modal from "../../../components/UI/Modal/Modal";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CreateRoom from "../../../components/Inputes/CreateRoom";
-import axios from "axios";
+import axios from "../../../util/axios";
 import moment from "moment";
+import AuthContext from "../../../store/auth-context";
 
 export default function RoomsPage() {
   const [allRooms, setAllRooms] = useState([]);
@@ -17,14 +18,23 @@ export default function RoomsPage() {
 
   const router = useRouter();
 
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
+
   useEffect(async () => {
-    try {
-      let result = await axios.get("http://localhost:8000/api/f/rooms");
-      setAllRooms(result.data.rooms);
-    } catch (err) {
-      setErrorMsg(err.response?.data.message);
+    if (token) {
+      try {
+        let result = await axios.get("/api/f/rooms", {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setAllRooms(result.data.rooms);
+      } catch (err) {
+        setErrorMsg(err.response?.data.message);
+      }
     }
-  }, []);
+  }, [token]);
 
   const singleRoomHandler = (roomCode) => {
     router.push(`/faculty/rooms/${roomCode}`);
@@ -70,41 +80,44 @@ export default function RoomsPage() {
           </Col>
         </Row>
         <Row>
-          {allRooms.map((room, idx) => (
-            <Col lg="4" key={idx}>
-              <Card className="room-card">
-                <Card.Header
-                  onClick={singleRoomHandler.bind(null, room.roomCode)}
-                >
-                  <h5>{room.roomName}</h5>
-                  <p>
-                    <small>
-                      <strong>Start: </strong>
-                      {moment(room.createdAt).format("ll")}
-                    </small>
-                  </p>
-                </Card.Header>
-                <Card.Footer>
-                  <p>
-                    <MdContentCopy />
-                    {room.roomCode}
-                  </p>
-                </Card.Footer>
+          {allRooms &&
+            allRooms.map((room, idx) => (
+              <Col lg="4" key={idx}>
+                <Card className="room-card">
+                  <Card.Header
+                    onClick={singleRoomHandler.bind(null, room.roomCode)}
+                  >
+                    <h5>{room.roomName}</h5>
+                    <p>
+                      <small>
+                        <strong>Start: </strong>
+                        {moment(room.createdAt).format("ll")}
+                      </small>
+                    </p>
+                  </Card.Header>
+                  <Card.Footer>
+                    <p>
+                      <MdContentCopy />
+                      {room.roomCode}
+                    </p>
+                  </Card.Footer>
 
-                <Dropdown>
-                  <Dropdown.Toggle variant="" id="dropdown-basic">
-                    <RiMore2Fill className="m-0 text-dark" />
-                  </Dropdown.Toggle>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="" id="dropdown-basic">
+                      <RiMore2Fill className="m-0 text-dark" />
+                    </Dropdown.Toggle>
 
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="/faculty/rooms/1">Open</Dropdown.Item>
-                    {/* <Dropdown.Item>Update</Dropdown.Item>
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="/faculty/rooms/1">
+                        Open
+                      </Dropdown.Item>
+                      {/* <Dropdown.Item>Update</Dropdown.Item>
                     <Dropdown.Item>Delete</Dropdown.Item> */}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Card>
-            </Col>
-          ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Card>
+              </Col>
+            ))}
         </Row>
       </Container>
     </div>

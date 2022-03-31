@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
-import axios from "axios";
+import { useRef, useState, useContext } from "react";
+import axios from "../../util/axios";
 import Swal from "sweetalert2";
+import AuthContext from "../../store/auth-context";
 
 import dynamic from "next/dynamic";
 const FroalaEditor = dynamic(() => import("../Editor/froalaEditor"), {
@@ -13,6 +14,9 @@ export default function NoteUpload({ setIsWrite, roomCode, addNoteToRoom }) {
 
   const fileRef = useRef();
 
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
+
   const formHandler = async (event) => {
     event.preventDefault();
     if ((postData.length > 0 && postData.length < 1234) || pdfFile) {
@@ -22,17 +26,18 @@ export default function NoteUpload({ setIsWrite, roomCode, addNoteToRoom }) {
         formData.append("file", pdfFile);
         formData.append("roomCode", roomCode);
 
-        let result = await axios.post(
-          "http://localhost:8000/api/f/note",
-          formData
-        );
+        let result = await axios.post("/api/f/note", formData, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
         addNoteToRoom(result.data.note);
         fileRef.current.value = null;
         setIsWrite(false);
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Your account created succesfully!",
+          title: "Room created succesfully!",
           showConfirmButton: false,
           timer: 1500,
         });
