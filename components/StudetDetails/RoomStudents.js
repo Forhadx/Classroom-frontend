@@ -15,8 +15,8 @@ export default function RoomStudents(props) {
         </tr>
       </thead>
       <tbody>
-        {props.students.map((std) => (
-          <tr>
+        {props.students.map((std, idx) => (
+          <tr key={idx}>
             <td>
               <div className="d-flex align-items-center">
                 <Image

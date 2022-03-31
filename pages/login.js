@@ -45,7 +45,7 @@ export default function LoginPage() {
       router.push(`/${userType}/rooms`);
     }
     autoUserType();
-  }, [token]);
+  }, [token, userType, autoUserType, router]);
 
   return (
     <Container className="auth-page">

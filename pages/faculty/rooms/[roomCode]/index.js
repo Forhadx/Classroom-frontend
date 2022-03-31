@@ -43,7 +43,7 @@ export default function SingleRoomPage() {
       };
       fetchNotes();
     }
-  }, [roomCode]);
+  }, [roomCode, token]);
 
   const downloadPdfHandler = async (note) => {
     let result = await axios.get(`/api/f/note/download/${note.id}`, {

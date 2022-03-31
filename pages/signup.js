@@ -71,7 +71,7 @@ export default function SignupPage() {
       });
     }
     autoUserType();
-  }, [authSuccess]);
+  }, [authSuccess, autoUserType]);
 
   return (
     <Container className="auth-page">
