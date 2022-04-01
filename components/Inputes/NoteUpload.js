@@ -19,7 +19,7 @@ export default function NoteUpload({ setIsWrite, roomCode, addNoteToRoom }) {
 
   const formHandler = async (event) => {
     event.preventDefault();
-    if ((postData.length > 0 && postData.length < 1234) || pdfFile) {
+    if (postData.length > 0 || pdfFile) {
       try {
         const formData = new FormData();
         formData.append("post", postData);

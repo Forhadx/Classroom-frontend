@@ -87,9 +87,7 @@ export default function RoomsPage() {
             allRooms.map((room, idx) => (
               <Col lg="4" key={idx}>
                 <Card className="room-card">
-                  <Card.Header
-                    onClick={singleRoomHandler.bind(null, room.roomCode)}
-                  >
+                  <Card.Header onClick={() => singleRoomHandler(room.roomCode)}>
                     <h5>{room.roomName}</h5>
                     <p>
                       <small>

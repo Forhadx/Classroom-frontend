@@ -44,10 +44,10 @@ export function AuthContextProvider(props) {
   async function userSignupHandler(data, type) {
     let URL = null;
     if (type === "faculty") {
-      URL = "http://localhost:8000/api/f/signup";
+      URL = "/api/f/signup";
     }
     if (type === "student") {
-      URL = "http://localhost:8000/api/s/signup";
+      URL = "/api/s/signup";
     }
     setIsError(false);
     try {
@@ -63,10 +63,10 @@ export function AuthContextProvider(props) {
   async function userLoginHandler(data, type) {
     let URL = null;
     if (type === "faculty") {
-      URL = "http://localhost:8000/api/f/login";
+      URL = "/api/f/login";
     }
     if (type === "student") {
-      URL = "http://localhost:8000/api/s/login";
+      URL = "/api/s/login";
     }
     setIsError(false);
     try {

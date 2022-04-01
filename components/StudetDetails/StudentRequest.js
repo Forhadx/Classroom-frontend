@@ -17,7 +17,6 @@ export default function StudentRequest(props) {
               <td>
                 <div className="d-flex align-items-center">
                   <Image
-                    // src="/images/forhad.jpg"
                     src={process.env.NEXT_PUBLIC_BASE_URL + "/" + std.image}
                     alt="student"
                     width={40}
