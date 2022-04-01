@@ -60,7 +60,9 @@ export default function LoginPage() {
             </h3>
             <Row>
               <Col lg="10" className="offset-1 mb-2">
-                <label>Email</label>
+                <label>{`Email (${
+                  userType === "faculty" ? "f@f.com" : "s@s.com"
+                })`}</label>
                 <input
                   type="text"
                   {...register("email")}
@@ -72,7 +74,7 @@ export default function LoginPage() {
                 </p>
               </Col>
               <Col lg="10" className="offset-1 mb-2">
-                <label>Password</label>
+                <label>{`Password (123456)`}</label>
                 <input
                   type="password"
                   {...register("password")}
