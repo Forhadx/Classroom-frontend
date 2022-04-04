@@ -14,7 +14,7 @@ export default function FacultyLayout(props) {
       <Row>
         <Col>
           <div className="cover-img">
-            <h2>Class 10 semester 1</h2>
+            <h2>This is your classroom</h2>
             <img
               src="/images/a.png"
               alt="faculty-cover"

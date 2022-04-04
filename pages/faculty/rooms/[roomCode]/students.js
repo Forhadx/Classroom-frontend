@@ -2,12 +2,16 @@ import FacultyLayout from "../../../../components/Layout/FacultyLayout";
 import { useRouter } from "next/router";
 import StudentRequest from "../../../../components/StudetDetails/StudentRequest";
 import RoomStudents from "../../../../components/StudetDetails/RoomStudents";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "../../../../util/axios";
+import AuthContext from "../../../../store/auth-context";
 
 export default function StudentsPage() {
   const [acitveStudents, setActiveStudents] = useState([]);
   const [requestStudents, setRequestStudenst] = useState([]);
+
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
 
   const router = useRouter();
   // console.log("r ", router);
@@ -16,21 +20,26 @@ export default function StudentsPage() {
   useEffect(() => {
     if (roomCode) {
       const teamStudents = async () => {
+        console.log("tokeN: ", roomCode);
         try {
-          const result = await axios.post("/api/f/team/students", { roomCode });
-          // console.log("data: ", result.data);
+          const result = await axios.post(
+            "/api/f/team/students",
+            { roomCode },
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log("data: ", result.data);
           let students = result.data.roomStudents.students;
           let actStd = [];
           let rqstStd = [];
           for (let key in students) {
-            // console.log("k: ", key);
-            // console.log("d: ", students[key]);
             if (students[key].teamList.isAccept) {
-              // setActiveStudents([...acitveStudents, students[key]]);
               actStd.push(students[key]);
             } else {
               rqstStd.push(students[key]);
-              // setRequestStudenst([...requestStudents, students[key]]);
             }
           }
           setActiveStudents(actStd);
@@ -38,17 +47,38 @@ export default function StudentsPage() {
         } catch (err) {
           console.log(err);
         }
-        teamStudents();
       };
+      teamStudents();
     }
   }, [roomCode]);
 
-  // console.log("active : ", acitveStudents);
-  // console.log("requst : ", requestStudents);
+  const acceptStudentHandler = async (std) => {
+    // console.log("sId: ", id);
+    try {
+      await axios.post(
+        "/api/f/team/accept",
+        { roomCode: roomCode, studentId: std.id },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setActiveStudents([...acitveStudents, std]);
+      setRequestStudenst((oldStd) => {
+        return oldStd.filter((std) => std.id !== std.id);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <FacultyLayout roomCode={roomCode}>
-      <StudentRequest students={requestStudents} />
+      <StudentRequest
+        students={requestStudents}
+        acceptStudentHandler={acceptStudentHandler}
+      />
       <RoomStudents students={acitveStudents} />
     </FacultyLayout>
   );

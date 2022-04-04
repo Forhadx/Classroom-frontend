@@ -27,7 +27,12 @@ export default function StudentRequest(props) {
               </td>
               <td>
                 <button className="cancel-btn btn">Cancel</button>
-                <button className="accept-btn btn">Accept</button>
+                <button
+                  className="accept-btn btn"
+                  onClick={() => props.acceptStudentHandler(std)}
+                >
+                  Accept
+                </button>
               </td>
             </tr>
           ))}

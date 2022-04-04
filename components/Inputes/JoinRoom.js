@@ -48,7 +48,7 @@ export default function JoinRoom(props) {
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Your account created succesfully!",
+        title: "You request send to the Faculty!",
         showConfirmButton: false,
         timer: 1500,
       });
@@ -76,7 +76,7 @@ export default function JoinRoom(props) {
       </div>
 
       <Button type="submit" varient="primary">
-        Create
+        Join request
       </Button>
     </Form>
   );
