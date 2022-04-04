@@ -11,7 +11,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
-  const { userType, token, userLogin, autoUserType } = AuthCtx;
+  const { userType, token, loading, userLogin, autoUserType } = AuthCtx;
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Email is invalid"),
@@ -87,7 +87,12 @@ export default function LoginPage() {
               </Col>
             </Row>
 
-            <Button type="submit" varient="primary" className=" offset-1">
+            <Button
+              type="submit"
+              varient="primary"
+              className=" offset-1"
+              disabled={loading}
+            >
               Login
             </Button>
           </form>

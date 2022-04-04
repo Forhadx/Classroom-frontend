@@ -6,10 +6,12 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import { useRouter } from "next/router";
 
 export default function SignupPage() {
+  const router = useRouter();
   const AuthCtx = useContext(AuthContext);
-  const { authSuccess, userType, autoUserType } = AuthCtx;
+  const { authSuccess, userType, autoUserType, loading } = AuthCtx;
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -47,16 +49,7 @@ export default function SignupPage() {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("image", data.image[0]);
-    AuthCtx.userSignup(
-      // {
-      //   name: "max",
-      //   email: "f@f.com",
-      //   password: "123456",
-      //   image: "i.jpg",
-      // },
-      formData,
-      userType
-    );
+    AuthCtx.userSignup(formData, userType);
     reset();
   };
 
@@ -67,8 +60,9 @@ export default function SignupPage() {
         icon: "success",
         title: "Your account created succesfully!",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 1000,
       });
+      router.push("/login");
     }
     autoUserType();
   }, [authSuccess, autoUserType]);
@@ -138,7 +132,12 @@ export default function SignupPage() {
               </Col>
             </Row>
 
-            <Button type="submit" varient="primary" className=" offset-1">
+            <Button
+              type="submit"
+              varient="primary"
+              className=" offset-1"
+              disabled={loading}
+            >
               Create Account
             </Button>
           </form>

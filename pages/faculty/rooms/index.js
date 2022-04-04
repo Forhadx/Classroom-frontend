@@ -7,35 +7,23 @@ import { useRouter } from "next/router";
 import Modal from "../../../components/UI/Modal/Modal";
 import { useContext, useEffect, useState } from "react";
 import CreateRoom from "../../../components/Inputes/CreateRoom";
-import axios from "../../../util/axios";
 import moment from "moment";
 import AuthContext from "../../../store/Auth/Auth-Context";
+import RoomContext from "../../../store/Room/Room-Context";
 
 export default function RoomsPage() {
-  const [allRooms, setAllRooms] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
+  const RoomCtx = useContext(RoomContext);
+  const { rooms, fetchAllFacultyRooms } = RoomCtx;
 
   useEffect(() => {
     if (token) {
-      const fetchRooms = async () => {
-        try {
-          let result = await axios.get("/api/f/rooms", {
-            headers: {
-              Authorization: "Bearer " + token,
-            },
-          });
-          setAllRooms(result.data.rooms);
-        } catch (err) {
-          setErrorMsg(err.response?.data.message);
-        }
-      };
-      fetchRooms();
+      fetchAllFacultyRooms(token);
     }
   }, [token]);
 
@@ -47,18 +35,11 @@ export default function RoomsPage() {
     setShowModal(false);
   };
 
-  const addNewRoomHandler = (room) => {
-    setAllRooms([room, ...allRooms]);
-  };
-
   return (
     <div className="room-page">
       {showModal && (
         <Modal showModal={showModal} closeModalhandler={closeModalhandler}>
-          <CreateRoom
-            closeModalhandler={closeModalhandler}
-            addNewRoomHandler={addNewRoomHandler}
-          />
+          <CreateRoom closeModalhandler={closeModalhandler} />
         </Modal>
       )}
       <Container>
@@ -79,12 +60,12 @@ export default function RoomsPage() {
           </Col>
           <Col sm="12">
             <hr />
-            <p>{`You have created ${allRooms.length} rooms.`}</p>
+            <p>{`You have created ${rooms.length} rooms.`}</p>
           </Col>
         </Row>
         <Row>
-          {allRooms &&
-            allRooms.map((room, idx) => (
+          {rooms &&
+            rooms.map((room, idx) => (
               <Col lg="4" key={idx}>
                 <Card className="room-card">
                   <Card.Header onClick={() => singleRoomHandler(room.roomCode)}>

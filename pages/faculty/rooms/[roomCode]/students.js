@@ -14,7 +14,6 @@ export default function StudentsPage() {
   const { token } = AuthCtx;
 
   const router = useRouter();
-  // console.log("r ", router);
   const roomCode = router.query.roomCode;
 
   useEffect(() => {

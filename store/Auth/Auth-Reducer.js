@@ -36,6 +36,7 @@ const Reducer = (state, action) => {
         studentId: null,
         loading: true,
         error: false,
+        authSuccess: false,
       };
     case "USER_LOGIN_ERROR":
       return {

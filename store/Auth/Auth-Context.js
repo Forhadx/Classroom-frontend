@@ -8,6 +8,7 @@ const AuthContext = createContext({
   studentId: null,
   token: null,
   authSuccess: false,
+  loading: false,
   error: false,
   userSignup: function (userData) {},
   userLogin: function (data) {},
@@ -23,6 +24,7 @@ const initialState = {
   studentId: null,
   token: null,
   authSuccess: false,
+  loading: false,
   error: false,
 };
 
@@ -166,6 +168,7 @@ export function AuthContextProvider(props) {
     facultyId: userState.facultyId,
     studentId: userState.studentId,
     token: userState.token,
+    authSuccess: userState.authSuccess,
     loading: userState.loading,
     error: userState.error,
     userSignup: onUserSignup,

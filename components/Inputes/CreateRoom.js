@@ -2,15 +2,19 @@ import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import axios from "../../util/axios";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../store/Auth/Auth-Context";
+import RoomContext from "../../store/Room/Room-Context";
 
 export default function CreateRoom(props) {
-  const [errorMsg, setErrorMsg] = useState("");
+  const [flag, setFlag] = useState(false);
+
+  const { closeModalhandler } = props;
 
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
+  const RoomCtx = useContext(RoomContext);
+  const { initAddFacultyRoom, addFacultyRoom, errorMsg, loading } = RoomCtx;
 
   const validationSchema = Yup.object().shape({
     roomName: Yup.string()
@@ -32,20 +36,23 @@ export default function CreateRoom(props) {
     let roomData = {
       roomName: data.roomName,
     };
-    try {
-      const result = await axios.post("/api/f/room", roomData, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      reset();
-      props.addNewRoomHandler(result.data.room);
-      props.closeModalhandler();
-    } catch (err) {
-      setErrorMsg(err.response?.data.message);
-    }
+    addFacultyRoom(roomData, token);
+    setFlag(true);
   };
+
+  useEffect(() => {
+    if (!flag) {
+      initAddFacultyRoom();
+    }
+  }, [initAddFacultyRoom]);
+
+  useEffect(() => {
+    if (!errorMsg && flag && !loading) {
+      setFlag(false);
+      reset();
+      closeModalhandler();
+    }
+  }, [errorMsg, closeModalhandler]);
 
   return (
     <Form onSubmit={handleSubmit(formSubmitHandler)} className="modal-form">
