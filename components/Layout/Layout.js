@@ -1,5 +1,5 @@
 import NavigationPage from "./Navigation";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../../store/Auth/Auth-Context";
 import { useRouter } from "next/router";
 import { useContext, useState, useEffect, useLayoutEffect } from "react";
 

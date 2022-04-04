@@ -9,7 +9,7 @@ import axios from "../../../../util/axios";
 import moment from "moment";
 import download from "downloadjs";
 import { useRouter } from "next/router";
-import AuthContext from "../../../../store/auth-context.js";
+import AuthContext from "../../../../store/Auth/Auth-Context";
 
 export default function SingleRoomPage() {
   const [isWrite, setIsWrite] = useState(false);

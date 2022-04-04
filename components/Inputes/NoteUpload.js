@@ -1,7 +1,7 @@
 import { useRef, useState, useContext } from "react";
 import axios from "../../util/axios";
 import Swal from "sweetalert2";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../../store/Auth/Auth-Context";
 
 import dynamic from "next/dynamic";
 const FroalaEditor = dynamic(() => import("../Editor/froalaEditor"), {

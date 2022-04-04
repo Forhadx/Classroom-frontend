@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { BsClipboardData } from "react-icons/bs";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../../store/Auth/Auth-Context";
 
 export default function NavigationPage() {
   const AuthCtx = useContext(AuthContext);

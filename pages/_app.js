@@ -1,7 +1,7 @@
 import Layout from "../components/Layout/Layout";
 import "../styles/globals.scss";
 import { SSRProvider } from "@react-aria/ssr";
-import { AuthContextProvider } from "../store/auth-context";
+import { AuthContextProvider } from "../store/Auth/Auth-Context";
 
 function MyApp({ Component, pageProps }) {
   return (

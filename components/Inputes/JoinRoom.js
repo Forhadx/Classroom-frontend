@@ -4,7 +4,7 @@ import { Form, Button } from "react-bootstrap";
 // import * as Yup from "yup";
 import axios from "../../util/axios";
 import { useState, useContext } from "react";
-import AuthContext from "../../store/auth-context";
+import AuthContext from "../../store/Auth/Auth-Context";
 import Swal from "sweetalert2";
 
 export default function JoinRoom(props) {

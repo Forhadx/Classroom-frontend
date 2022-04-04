@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
-import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
-import AuthContext from "../store/auth-context";
+import { Row, Col, Container, Button } from "react-bootstrap";
+import AuthContext from "../store/Auth/Auth-Context";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";

@@ -4,7 +4,7 @@ import StudentRequest from "../../../../components/StudetDetails/StudentRequest"
 import RoomStudents from "../../../../components/StudetDetails/RoomStudents";
 import { useEffect, useState, useContext } from "react";
 import axios from "../../../../util/axios";
-import AuthContext from "../../../../store/auth-context";
+import AuthContext from "../../../../store/Auth/Auth-Context";
 
 export default function StudentsPage() {
   const [acitveStudents, setActiveStudents] = useState([]);

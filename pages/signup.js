@@ -1,6 +1,6 @@
-import { Row, Col, Container, Form, InputGroup, Button } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import Link from "next/link";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../store/Auth/Auth-Context";
 import { useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";

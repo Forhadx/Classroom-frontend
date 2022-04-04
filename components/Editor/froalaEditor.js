@@ -1,7 +1,6 @@
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import FroalaEditor from "react-froala-wysiwyg";
-import { useRef } from "react";
 
 export default function froalaEditor(props) {
   const froalaEditor = {

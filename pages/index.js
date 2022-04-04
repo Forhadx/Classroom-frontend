@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { FaUserTie, FaUser } from "react-icons/fa";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../store/Auth/Auth-Context";
 
 export default function Home() {
   const router = useRouter();

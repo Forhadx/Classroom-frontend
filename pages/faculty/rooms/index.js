@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import CreateRoom from "../../../components/Inputes/CreateRoom";
 import axios from "../../../util/axios";
 import moment from "moment";
-import AuthContext from "../../../store/auth-context";
+import AuthContext from "../../../store/Auth/Auth-Context";
 
 export default function RoomsPage() {
   const [allRooms, setAllRooms] = useState([]);

@@ -8,7 +8,7 @@ import Modal from "../../../components/UI/Modal/Modal";
 import { useContext, useEffect, useState } from "react";
 import axios from "../../../util/axios";
 import moment from "moment";
-import AuthContext from "../../../store/auth-context";
+import AuthContext from "../../../store/Auth/Auth-Context";
 import JoinRoom from "../../../components/Inputes/JoinRoom";
 
 export default function RoomsPage() {
