@@ -10,6 +10,7 @@ import moment from "moment";
 import download from "downloadjs";
 import { useRouter } from "next/router";
 import AuthContext from "../../../../store/Auth/Auth-Context";
+import NoteContext from "../../../../store/Note/Note-Context.js";
 
 export default function SingleRoomPage() {
   const [isWrite, setIsWrite] = useState(false);
@@ -21,29 +22,14 @@ export default function SingleRoomPage() {
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
 
+  const NoteCtx = useContext(NoteContext);
+  const { noteList, fetchRoomNotes } = NoteCtx;
+
   useEffect(() => {
     if (roomCode) {
-      const fetchNotes = async () => {
-        try {
-          let result = await axios.post(
-            "/api/f/notes",
-            {
-              roomCode: roomCode,
-            },
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          setAllNotes(result.data.notes);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      fetchNotes();
+      fetchRoomNotes(roomCode, token);
     }
-  }, [roomCode, token]);
+  }, [roomCode, token, fetchRoomNotes]);
 
   const downloadPdfHandler = async (note) => {
     let result = await axios.get(`/api/f/note/download/${note.id}`, {
@@ -87,7 +73,7 @@ export default function SingleRoomPage() {
           )}
         </Col>
         <Col sm="12">
-          {allNotes.map((note, idx) => (
+          {noteList.map((note, idx) => (
             <Card className="note-card" key={idx}>
               <Card.Body>
                 <p>

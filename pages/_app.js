@@ -4,6 +4,7 @@ import { SSRProvider } from "@react-aria/ssr";
 import { AuthContextProvider } from "../store/Auth/Auth-Context";
 import { RoomContextProvider } from "../store/Room/Room-Context";
 import { TeamContextProvider } from "../store/Team/Team-Context";
+import { NoteContextProvider } from "../store/Note/Note-Context";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,9 +12,11 @@ function MyApp({ Component, pageProps }) {
       <AuthContextProvider>
         <RoomContextProvider>
           <TeamContextProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <NoteContextProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </NoteContextProvider>
           </TeamContextProvider>
         </RoomContextProvider>
       </AuthContextProvider>

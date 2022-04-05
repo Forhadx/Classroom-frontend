@@ -21,7 +21,7 @@ const initialState = {
 };
 
 export function TeamContextProvider(props) {
-  const [roomState, dispatch] = useReducer(Reducer, initialState);
+  const [teamState, dispatch] = useReducer(Reducer, initialState);
 
   // FETCH FACULTY TEAM STUDENTS
   const onFetchAllTeamStudents = useCallback(async (data, token) => {
@@ -75,11 +75,11 @@ export function TeamContextProvider(props) {
   }, []);
 
   const context = {
-    teamStudents: roomState.teamStudents,
-    teamRequestStudents: roomState.teamRequestStudents,
-    loading: roomState.loading,
-    error: roomState.error,
-    errorMsg: roomState.errorMsg,
+    teamStudents: teamState.teamStudents,
+    teamRequestStudents: teamState.teamRequestStudents,
+    loading: teamState.loading,
+    error: teamState.error,
+    errorMsg: teamState.errorMsg,
     fetchAllTeamStudents: onFetchAllTeamStudents,
     acceptTeamStudent: onAcceptTeamStudent,
   };
