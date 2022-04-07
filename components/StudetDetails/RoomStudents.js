@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
 import Image from "next/image";
 // import { RiDeleteBinLine } from "react-icons/ri";
+import moment from "moment";
 
 export default function RoomStudents(props) {
   return (
@@ -10,8 +11,8 @@ export default function RoomStudents(props) {
           <th>{`${props.students.length} students`}</th>
           {/* <th>
             Presents(<span>out of 20</span>)
-          </th>
-          <th></th> */}
+          </th>*/}
+          <th>Join</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +29,7 @@ export default function RoomStudents(props) {
                 <span className="ms-3">{std.name}</span>
               </div>
             </td>
-            {/* <td>12</td> */}
+            <td>{moment(std.createdAt).format("ll")}</td>
             {/* <td>
               <div className="remove-students">
                 <RiDeleteBinLine />

@@ -6,7 +6,7 @@ import FacultyLayout from "../../../../components/Layout/FacultyLayout";
 import { useRouter } from "next/router";
 
 export default function AttendancePage() {
-  const [isHistory, setIsHistory] = useState(true);
+  const [isHistory, setIsHistory] = useState(false);
 
   const router = useRouter();
   const roomCode = router.query.roomCode;
@@ -18,20 +18,20 @@ export default function AttendancePage() {
           <div className="attendace-page">
             <div className="attendance-page-header">
               <button
-                className={`header-btn ${isHistory ? "active" : ""}`}
-                onClick={() => setIsHistory(true)}
-              >
-                History
-              </button>
-              <button
                 className={`header-btn ${!isHistory ? "active" : ""}`}
                 onClick={() => setIsHistory(false)}
               >
                 New Attendance
               </button>
+              <button
+                className={`header-btn ${isHistory ? "active" : ""}`}
+                onClick={() => setIsHistory(true)}
+              >
+                History
+              </button>
             </div>
 
-            {isHistory ? <HistoryAttendance /> : <NewAttendance />}
+            {!isHistory ? <NewAttendance /> : <HistoryAttendance />}
           </div>
         </Col>
       </Row>

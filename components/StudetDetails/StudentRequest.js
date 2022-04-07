@@ -6,7 +6,11 @@ export default function StudentRequest(props) {
     <Table className="student-table student-request-table w-100">
       <thead>
         <tr>
-          <th>You have student request</th>
+          <th>{`${
+            props.students.length > 0
+              ? "You have student request"
+              : "You have no student request"
+          }`}</th>
           <th></th>
         </tr>
       </thead>

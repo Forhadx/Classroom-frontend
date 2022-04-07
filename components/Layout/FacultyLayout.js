@@ -4,10 +4,35 @@ import { RiContactsBook2Fill, RiTeamFill } from "react-icons/ri";
 import { BiCalendarCheck } from "react-icons/bi";
 import { MdContentCopy } from "react-icons/md";
 import { useRouter } from "next/router";
+import { useContext, useEffect } from "react";
+import TeamContext from "../../store/Team/Team-Context";
+import AuthContext from "../../store/Auth/Auth-Context";
+import AttendanceContext from "../../store/Attendance/Attendance-Context";
 
 export default function FacultyLayout(props) {
   const router = useRouter();
   const currentRoute = router.pathname;
+  let roomCode = router.query.roomCode;
+
+  const AuthCtx = useContext(AuthContext);
+  const { token } = AuthCtx;
+  const TeamCtx = useContext(TeamContext);
+  const { teamStudents, fetchAllTeamStudents } = TeamCtx;
+  const AttendanceCtx = useContext(AttendanceContext);
+  const { initialAttendance, attendanceList } = AttendanceCtx;
+
+  useEffect(() => {
+    if (token && roomCode) {
+      fetchAllTeamStudents(roomCode, token);
+    }
+  }, [roomCode, token]);
+
+  useEffect(() => {
+    if (teamStudents.length > 0) {
+      console.log("entry????");
+      initialAttendance(teamStudents);
+    }
+  }, [initialAttendance, teamStudents]);
 
   return (
     <Container>

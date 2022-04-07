@@ -5,6 +5,7 @@ import { AuthContextProvider } from "../store/Auth/Auth-Context";
 import { RoomContextProvider } from "../store/Room/Room-Context";
 import { TeamContextProvider } from "../store/Team/Team-Context";
 import { NoteContextProvider } from "../store/Note/Note-Context";
+import { AttendanceContextProvider } from "../store/Attendance/Attendance-Context";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -13,9 +14,11 @@ function MyApp({ Component, pageProps }) {
         <RoomContextProvider>
           <TeamContextProvider>
             <NoteContextProvider>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <AttendanceContextProvider>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </AttendanceContextProvider>
             </NoteContextProvider>
           </TeamContextProvider>
         </RoomContextProvider>

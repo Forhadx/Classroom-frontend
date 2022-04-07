@@ -8,7 +8,7 @@ const TeamContext = createContext({
   loading: false,
   error: false,
   errorMsg: "",
-  fetchAllTeamStudents: function (data, token) {},
+  fetchAllTeamStudents: function (roomCode, token) {},
   acceptTeamStudent: function (data, token) {},
 });
 
@@ -24,16 +24,20 @@ export function TeamContextProvider(props) {
   const [teamState, dispatch] = useReducer(Reducer, initialState);
 
   // FETCH FACULTY TEAM STUDENTS
-  const onFetchAllTeamStudents = useCallback(async (data, token) => {
+  const onFetchAllTeamStudents = useCallback(async (roomCode, token) => {
     dispatch({
       type: "FETCH_FACULTY_TEAM_STUDENTS_START",
     });
     try {
-      let result = await axios.post("/api/f/team/students", data, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      let result = await axios.post(
+        "/api/f/team/students",
+        { roomCode },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       dispatch({
         type: "FETCH_FACULTY_TEAM_STUDENTS",
         teamStudents: result.data.teamStudents,
