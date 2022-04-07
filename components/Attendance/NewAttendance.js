@@ -1,12 +1,14 @@
 import { Table, Button } from "react-bootstrap";
 import Image from "next/image";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import AttendanceContext from "../../store/Attendance/Attendance-Context";
 import AuthContext from "../../store/Auth/Auth-Context";
 import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 
 export default function NewAttendance() {
+  const [flag, setFlag] = useState(false);
+
   const router = useRouter();
   const roomCode = router.query.roomCode;
 
@@ -14,6 +16,7 @@ export default function NewAttendance() {
   const { token } = AuthCtx;
   const AttendanceCtx = useContext(AttendanceContext);
   const {
+    loading,
     attendanceSuccess,
     currentAttendance,
     yesAttendance,
@@ -21,8 +24,13 @@ export default function NewAttendance() {
     submitAttendance,
   } = AttendanceCtx;
 
+  const submitAttendanceHandler = (currentAttendance, roomCode, token) => {
+    submitAttendance(currentAttendance, roomCode, token);
+    setFlag(true);
+  };
+
   useEffect(() => {
-    if (attendanceSuccess) {
+    if (attendanceSuccess && flag) {
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -85,8 +93,10 @@ export default function NewAttendance() {
           <Button
             varient="primary"
             className="mt-4"
-            // disabled={loading}
-            onClick={() => submitAttendance(currentAttendance, roomCode, token)}
+            disabled={loading}
+            onClick={() =>
+              submitAttendanceHandler(currentAttendance, roomCode, token)
+            }
           >
             Submit
           </Button>

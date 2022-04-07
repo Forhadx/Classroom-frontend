@@ -8,6 +8,7 @@ const NoteContext = createContext({
   error: false,
   errorMsg: "",
   fetchRoomNotes: function (roomCode, token) {},
+  addNewNotes: function (data, token) {},
 });
 
 const initialState = {
@@ -49,12 +50,36 @@ export function NoteContextProvider(props) {
     }
   }, []);
 
+  // ADD ROOM NOTES
+  const onAddNewNotes = useCallback(async (data, token) => {
+    dispatch({
+      type: "ADD_ROOM_NOTES_START",
+    });
+    try {
+      let result = await axios.post("/api/f/note", data, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      dispatch({
+        type: "ADD_ROOM_NOTES",
+        note: result.data.note,
+      });
+    } catch (err) {
+      dispatch({
+        type: "ADD_ROOM_NOTES_ERROR",
+        errorMsg: err.response.data.message,
+      });
+    }
+  }, []);
+
   const context = {
     noteList: noteState.noteList,
     loading: noteState.loading,
     error: noteState.error,
     errorMsg: noteState.errorMsg,
     fetchRoomNotes: onFetchRoomNotes,
+    addNewNotes: onAddNewNotes,
   };
   return (
     <NoteContext.Provider value={context}>

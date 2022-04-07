@@ -29,7 +29,6 @@ export default function FacultyLayout(props) {
 
   useEffect(() => {
     if (teamStudents.length > 0) {
-      console.log("entry????");
       initialAttendance(teamStudents);
     }
   }, [initialAttendance, teamStudents]);

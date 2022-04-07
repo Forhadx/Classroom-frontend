@@ -61,7 +61,33 @@ const Reducer = (state, action) => {
         errorMsg: "",
         attendanceSuccess: true,
       };
-
+    case "FETCH_ALL_ATTENDANCE_LIST_START":
+      return {
+        ...state,
+        attendanceList: [],
+        loading: true,
+        error: false,
+        errorMsg: "",
+        attendanceSuccess: false,
+      };
+    case "FETCH_ALL_ATTENDANCE_LIST_ERROR":
+      return {
+        ...state,
+        attendanceList: [],
+        loading: false,
+        error: true,
+        errorMsg: action.errorMsg,
+        attendanceSuccess: false,
+      };
+    case "FETCH_ALL_ATTENDANCE_LIST":
+      return {
+        ...state,
+        attendanceList: action.attendanceList,
+        loading: false,
+        error: false,
+        errorMsg: "",
+        attendanceSuccess: false,
+      };
     default:
       return state;
   }

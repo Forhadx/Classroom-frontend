@@ -14,7 +14,6 @@ import NoteContext from "../../../../store/Note/Note-Context.js";
 
 export default function SingleRoomPage() {
   const [isWrite, setIsWrite] = useState(false);
-  const [allNotes, setAllNotes] = useState([]);
 
   const router = useRouter();
   const roomCode = router.query.roomCode;
@@ -43,10 +42,6 @@ export default function SingleRoomPage() {
     return download(result.data, filename, "application/pdf");
   };
 
-  const addNoteToRoom = (note) => {
-    setAllNotes([note, ...allNotes]);
-  };
-
   return (
     <FacultyLayout roomCode={roomCode}>
       <Row>
@@ -63,11 +58,7 @@ export default function SingleRoomPage() {
           ) : (
             <Card className="note-write-box">
               <Card.Body>
-                <NoteUpload
-                  setIsWrite={setIsWrite}
-                  roomCode={roomCode}
-                  addNoteToRoom={addNoteToRoom}
-                />
+                <NoteUpload setIsWrite={setIsWrite} roomCode={roomCode} />
               </Card.Body>
             </Card>
           )}
@@ -88,7 +79,13 @@ export default function SingleRoomPage() {
                     <img src="/images/pdf.png" alt="file" />
                     <p>
                       <small>
-                        {note.file.split("/")[note.file.split("/").length - 1]}
+                        {note.file
+                          .split("/")
+                          [note.file.split("/").length - 1].slice(0, 6)
+                          .concat("...") +
+                          note.file
+                            .split("/")
+                            [note.file.split("/").length - 1].slice(-6)}
                       </small>
                     </p>
                     <FiDownload />

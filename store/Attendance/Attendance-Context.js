@@ -13,6 +13,7 @@ const AttendanceContext = createContext({
   yesAttendance: function (sId) {},
   noAttendance: function (sId) {},
   submitAttendance: function (data) {},
+  fetchAllAttendanceList: function (roomCode, token) {},
 });
 
 const initialState = {
@@ -54,10 +55,9 @@ export function AttendanceContextProvider(props) {
   // SUBMIT STUDENTS ATTENDANCE
   const onSubmitAttendance = useCallback(
     async (attendanceData, roomCode, token) => {
-      console.log("action..");
       dispatch({ type: "SUBMIT_STUDENTS_ATTENDANCE_START" });
       try {
-        let result = await axios.post(
+        await axios.post(
           "/api/f/attendance/mark",
           { studentList: attendanceData, roomCode: roomCode },
           {
@@ -80,6 +80,31 @@ export function AttendanceContextProvider(props) {
     []
   );
 
+  //FETCH ALL ATTENDANCE LIST
+  const onFetchAllAttendanceList = useCallback(async (roomCode, token) => {
+    dispatch({ type: "FETCH_ALL_ATTENDANCE_LIST_START" });
+    try {
+      let result = await axios.post(
+        "/api/f/attendance",
+        { roomCode: roomCode },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      dispatch({
+        type: "FETCH_ALL_ATTENDANCE_LIST",
+        attendanceList: result.data.attendanceList,
+      });
+    } catch (err) {
+      dispatch({
+        type: "FETCH_ALL_ATTENDANCE_LIST_ERROR",
+        errorMsg: err.response.data.message,
+      });
+    }
+  }, []);
+
   const context = {
     attendanceList: attendanceState.attendanceList,
     currentAttendance: attendanceState.currentAttendance,
@@ -91,6 +116,7 @@ export function AttendanceContextProvider(props) {
     yesAttendance: onYesAttendance,
     noAttendance: onNoAttendance,
     submitAttendance: onSubmitAttendance,
+    fetchAllAttendanceList: onFetchAllAttendanceList,
   };
   return (
     <AttendanceContext.Provider value={context}>

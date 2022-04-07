@@ -1,9 +1,10 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState, useContext, useEffect } from "react";
 import axios from "../../util/axios";
 import Swal from "sweetalert2";
 import AuthContext from "../../store/Auth/Auth-Context";
 
 import dynamic from "next/dynamic";
+import NoteContext from "../../store/Note/Note-Context";
 const FroalaEditor = dynamic(() => import("../Editor/froalaEditor"), {
   ssr: false,
 });
@@ -11,48 +12,48 @@ const FroalaEditor = dynamic(() => import("../Editor/froalaEditor"), {
 export default function NoteUpload({ setIsWrite, roomCode, addNoteToRoom }) {
   const [postData, setPostData] = useState("");
   const [pdfFile, setPdfFile] = useState("");
+  const [flag, setFlag] = useState(false);
 
   const fileRef = useRef();
 
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
+  const NoteCtx = useContext(NoteContext);
+  const { noteList, loading, error, addNewNotes } = NoteCtx;
 
   const formHandler = async (event) => {
     event.preventDefault();
     if (postData.length > 0 || pdfFile) {
-      try {
-        const formData = new FormData();
-        formData.append("post", postData);
-        formData.append("file", pdfFile);
-        formData.append("roomCode", roomCode);
+      const formData = new FormData();
+      formData.append("post", postData);
+      formData.append("file", pdfFile);
+      formData.append("roomCode", roomCode);
 
-        let result = await axios.post("/api/f/note", formData, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        addNoteToRoom(result.data.note);
-        fileRef.current.value = null;
-        setIsWrite(false);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Room created succesfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      addNewNotes(formData, token);
+
+      setFlag(true);
     }
   };
 
   const pickedHandler = (event) => {
     if (event.target.files && event.target.files.length === 1) {
       setPdfFile(event.target.files[0]);
-      //   event.target.value = null;
     }
   };
+
+  useEffect(() => {
+    if (flag && loading && !error) {
+      setIsWrite(false);
+      fileRef.current.value = null;
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Note Added succesfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [loading, error]);
 
   return (
     <form onSubmit={formHandler}>
