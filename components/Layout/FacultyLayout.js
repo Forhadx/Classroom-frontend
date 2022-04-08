@@ -28,9 +28,7 @@ export default function FacultyLayout(props) {
   }, [roomCode, token, fetchAllTeamStudents]);
 
   useEffect(() => {
-    if (teamStudents.length > 0) {
-      initialAttendance(teamStudents);
-    }
+    initialAttendance(teamStudents);
   }, [initialAttendance, teamStudents]);
 
   return (
