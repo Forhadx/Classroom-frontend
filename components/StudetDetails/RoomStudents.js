@@ -8,10 +8,9 @@ export default function RoomStudents(props) {
     <Table hover className="student-table w-100">
       <thead>
         <tr>
-          <th>{`${props.students.length} students`}</th>
-          {/* <th>
-            Presents(<span>out of 20</span>)
-          </th>*/}
+          <th>{`Students(${props.students.length})`}</th>
+
+          <th>Email</th>
           <th>Join</th>
         </tr>
       </thead>
@@ -29,6 +28,7 @@ export default function RoomStudents(props) {
                 <span className="ms-3">{std.name}</span>
               </div>
             </td>
+            <td>{std.email}</td>
             <td>{moment(std.createdAt).format("ll")}</td>
             {/* <td>
               <div className="remove-students">

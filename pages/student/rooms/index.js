@@ -6,57 +6,40 @@ import { MdContentCopy } from "react-icons/md";
 import { useRouter } from "next/router";
 import Modal from "../../../components/UI/Modal/Modal";
 import { useContext, useEffect, useState } from "react";
-import axios from "../../../util/axios";
 import moment from "moment";
 import AuthContext from "../../../store/Auth/Auth-Context";
 import JoinRoom from "../../../components/Inputes/JoinRoom";
+import RoomContext from "../../../store/Room/Room-Context";
 
 export default function RoomsPage() {
-  const [allRooms, setAllRooms] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
-  const { token } = AuthCtx;
+  const { token, userType } = AuthCtx;
+  const RoomCtx = useContext(RoomContext);
+  const { rooms, fetchAllRooms } = RoomCtx;
 
   useEffect(() => {
-    if (token) {
-      try {
-        // let result = await axios.get("/api/f/rooms", {
-        //   headers: {
-        //     Authorization: "Bearer " + token,
-        //   },
-        // });
-        // setAllRooms(result.data.rooms);
-      } catch (err) {
-        // setErrorMsg(err.response?.data.message);
-      }
+    if ((token, userType)) {
+      fetchAllRooms(token, userType);
     }
   }, [token]);
 
   const singleRoomHandler = (roomCode) => {
-    router.push(`/faculty/rooms/${roomCode}`);
+    router.push(`/student/rooms/${roomCode}`);
   };
 
   const closeModalhandler = () => {
-    // console.log("clos ind");
     setShowModal(false);
-  };
-
-  const addNewRoomHandler = (room) => {
-    setAllRooms([room, ...allRooms]);
   };
 
   return (
     <div className="room-page">
       {showModal && (
         <Modal showModal={showModal} closeModalhandler={closeModalhandler}>
-          <JoinRoom
-            closeModalhandler={closeModalhandler}
-            addNewRoomHandler={addNewRoomHandler}
-          />
+          <JoinRoom closeModalhandler={closeModalhandler} />
         </Modal>
       )}
       <Container>
@@ -77,12 +60,12 @@ export default function RoomsPage() {
           </Col>
           <Col sm="12">
             <hr />
-            <p>{`You have created ${allRooms.length} rooms.`}</p>
+            <p>{`You have created ${rooms.length} rooms.`}</p>
           </Col>
         </Row>
         <Row>
-          {allRooms &&
-            allRooms.map((room, idx) => (
+          {rooms &&
+            rooms.map((room, idx) => (
               <Col lg="4" key={idx}>
                 <Card className="room-card">
                   <Card.Header
@@ -109,7 +92,7 @@ export default function RoomsPage() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="/faculty/rooms/1">
+                      <Dropdown.Item href={`/student/rooms/${room.roomCode}`}>
                         Open
                       </Dropdown.Item>
                       {/* <Dropdown.Item>Update</Dropdown.Item>

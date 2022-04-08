@@ -16,24 +16,20 @@ export default function Layout(props) {
 
   useIsomorphicLayoutEffect(() => {
     if (!token && flag) {
-      // console.log("1?");
       autoLogin();
       setFlag(false);
     } else if (!token && (pathName === "student" || pathName === "faculty")) {
-      // console.log("2?");
       router.push("/");
     } else if (
       token &&
       (pathName === "" || pathName === "login" || pathName === "signup")
     ) {
-      // console.log("3?");
       facultyId && router.push("/faculty/rooms");
       studentId && router.push("/student/rooms");
     } else if (
       (facultyId && pathName === "student") ||
       (studentId && pathName === "faculty")
     ) {
-      // console.log("4?");
       router.push("/404");
     }
   }, [autoLogin, facultyId, token, studentId]);

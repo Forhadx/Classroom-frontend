@@ -7,7 +7,7 @@ const RoomContext = createContext({
   loading: false,
   error: false,
   errorMsg: "",
-  fetchAllFacultyRooms: function (token) {},
+  fetchAllRooms: function (token) {},
   initAddFacultyRoom: function () {},
   addFacultyRoom: function (data, token) {},
 });
@@ -22,24 +22,31 @@ const initialState = {
 export function RoomContextProvider(props) {
   const [roomState, dispatch] = useReducer(Reducer, initialState);
 
-  // FETCH FACULTY ROOMS
-  const onFetchAllFacultyRooms = useCallback(async (token) => {
+  // FETCH ALL ROOMS
+  const onFetchAllRooms = useCallback(async (token, userType) => {
     dispatch({
-      type: "FETCH_FACULTY_ROOMS_START",
+      type: "FETCH_ALL_ROOMS_START",
     });
     try {
-      let result = await axios.get("/api/f/rooms", {
+      let URL = null;
+      if (userType === "faculty") {
+        URL = "/api/f/rooms";
+      }
+      if (userType === "student") {
+        URL = "/api/s/rooms";
+      }
+      let result = await axios.get(URL, {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
       dispatch({
-        type: "FETCH_FACULTY_ROOMS",
+        type: "FETCH_ALL_ROOMS",
         rooms: result.data.rooms,
       });
     } catch (err) {
       dispatch({
-        type: "FETCH_FACULTY_ROOMS_ERROR",
+        type: "FETCH_ALL_ROOMS_ERROR",
         errorMsg: err.response.data.message,
       });
     }
@@ -80,7 +87,7 @@ export function RoomContextProvider(props) {
     loading: roomState.loading,
     error: roomState.error,
     errorMsg: roomState.errorMsg,
-    fetchAllFacultyRooms: onFetchAllFacultyRooms,
+    fetchAllRooms: onFetchAllRooms,
     initAddFacultyRoom: onInitAddFacultyRoom,
     addFacultyRoom: onAddFacultyRoom,
   };

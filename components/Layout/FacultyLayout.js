@@ -12,14 +12,14 @@ import AttendanceContext from "../../store/Attendance/Attendance-Context";
 export default function FacultyLayout(props) {
   const router = useRouter();
   const currentRoute = router.pathname;
-  let roomCode = router.query.roomCode;
+  const { roomCode } = props;
 
   const AuthCtx = useContext(AuthContext);
   const { token } = AuthCtx;
   const TeamCtx = useContext(TeamContext);
   const { teamStudents, fetchAllTeamStudents } = TeamCtx;
   const AttendanceCtx = useContext(AttendanceContext);
-  const { initialAttendance, attendanceList } = AttendanceCtx;
+  const { initialAttendance } = AttendanceCtx;
 
   useEffect(() => {
     if (token && roomCode) {
@@ -46,7 +46,7 @@ export default function FacultyLayout(props) {
             />
             <div className="room-code">
               <MdContentCopy />
-              {props.roomCode}
+              {roomCode}
             </div>
           </div>
         </Col>
@@ -55,7 +55,7 @@ export default function FacultyLayout(props) {
         <Col lg="4">
           <ul className="room-sidebar">
             <li>
-              <Link href={`/faculty/rooms/${props.roomCode}`}>
+              <Link href={`/faculty/rooms/${roomCode}`}>
                 <a
                   className={
                     currentRoute === `/faculty/rooms/[roomCode]` ? "active" : ""
@@ -66,7 +66,7 @@ export default function FacultyLayout(props) {
               </Link>
             </li>
             <li>
-              <Link href={`/faculty/rooms/${props.roomCode}/attendance`}>
+              <Link href={`/faculty/rooms/${roomCode}/attendance`}>
                 <a
                   className={
                     currentRoute === `/faculty/rooms/[roomCode]/attendance`
@@ -79,7 +79,7 @@ export default function FacultyLayout(props) {
               </Link>
             </li>
             <li>
-              <Link href={`/faculty/rooms/${props.roomCode}/students`}>
+              <Link href={`/faculty/rooms/${roomCode}/students`}>
                 <a
                   className={
                     currentRoute === `/faculty/rooms/[roomCode]/students`

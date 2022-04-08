@@ -19,16 +19,16 @@ export default function SingleRoomPage() {
   const roomCode = router.query.roomCode;
 
   const AuthCtx = useContext(AuthContext);
-  const { token } = AuthCtx;
+  const { token, userType } = AuthCtx;
 
   const NoteCtx = useContext(NoteContext);
   const { noteList, fetchRoomNotes } = NoteCtx;
 
   useEffect(() => {
-    if (roomCode) {
-      fetchRoomNotes(roomCode, token);
+    if (roomCode && token && userType) {
+      fetchRoomNotes(roomCode, token, userType);
     }
-  }, [roomCode, token, fetchRoomNotes]);
+  }, [roomCode, token, userType, fetchRoomNotes]);
 
   const downloadPdfHandler = async (note) => {
     let result = await axios.get(`/api/f/note/download/${note.id}`, {

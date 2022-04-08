@@ -1,6 +1,6 @@
 const Reducer = (state, action) => {
   switch (action.type) {
-    case "FETCH_FACULTY_ROOMS_START":
+    case "FETCH_ALL_ROOMS_START":
       return {
         ...state,
         rooms: [],
@@ -8,7 +8,7 @@ const Reducer = (state, action) => {
         error: false,
         errorMsg: "",
       };
-    case "FETCH_FACULTY_ROOMS_ERROR":
+    case "FETCH_ALL_ROOMS_ERROR":
       return {
         ...state,
         rooms: [],
@@ -16,7 +16,7 @@ const Reducer = (state, action) => {
         error: true,
         errorMsg: action.errorMsg,
       };
-    case "FETCH_FACULTY_ROOMS":
+    case "FETCH_ALL_ROOMS":
       return {
         ...state,
         rooms: action.rooms,
@@ -54,6 +54,7 @@ const Reducer = (state, action) => {
         error: false,
         errorMsg: "",
       };
+
     default:
       return state;
   }

@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import moment from "moment";
 
 export default function HistoryAttendance() {
-  const [currentIndex, setCurrentIndex] = useState(null);
   const [currentAttendance, setCurrentAttendance] = useState([]);
 
   const router = useRouter();
@@ -69,12 +68,14 @@ export default function HistoryAttendance() {
                       <td>
                         <div className="d-flex align-items-center">
                           <Image
-                            src="/images/forhad.jpg"
+                            src={
+                              process.env.NEXT_PUBLIC_BASE_URL + "/" + std.image
+                            }
                             alt="student"
                             width={40}
                             height={40}
                           />
-                          <span className="ms-3">Md Shamsul Haque Forhad</span>
+                          <span className="ms-3">{std.name}</span>
                         </div>
                       </td>
                       {std.attendanceList && (
@@ -96,8 +97,3 @@ export default function HistoryAttendance() {
     </>
   );
 }
-
-/**
- * <RiCloseFill className="no-icon" />
- <RiCheckDoubleFill className="yes-icon" />
- */

@@ -17,15 +17,15 @@ export default function RoomsPage() {
   const router = useRouter();
 
   const AuthCtx = useContext(AuthContext);
-  const { token } = AuthCtx;
+  const { token, userType } = AuthCtx;
   const RoomCtx = useContext(RoomContext);
-  const { rooms, fetchAllFacultyRooms } = RoomCtx;
+  const { rooms, fetchAllRooms } = RoomCtx;
 
   useEffect(() => {
-    if (token) {
-      fetchAllFacultyRooms(token);
+    if (token && userType) {
+      fetchAllRooms(token, userType);
     }
-  }, [token]);
+  }, [token, userType]);
 
   const singleRoomHandler = (roomCode) => {
     router.push(`/faculty/rooms/${roomCode}`);
@@ -90,7 +90,7 @@ export default function RoomsPage() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item href="/faculty/rooms/1">
+                      <Dropdown.Item href={`/faculty/rooms/${room.roomCode}`}>
                         Open
                       </Dropdown.Item>
                       {/* <Dropdown.Item>Update</Dropdown.Item>

@@ -22,13 +22,20 @@ export function NoteContextProvider(props) {
   const [noteState, dispatch] = useReducer(Reducer, initialState);
 
   // FETCH ROOM NOTES
-  const onFetchRoomNotes = useCallback(async (roomCode, token) => {
+  const onFetchRoomNotes = useCallback(async (roomCode, token, userType) => {
     dispatch({
       type: "FETCH_ROOM_NOTES_START",
     });
     try {
+      let URL = null;
+      if (userType === "faculty") {
+        URL = "/api/f/notes";
+      }
+      if (userType === "student") {
+        URL = "/api/s/notes";
+      }
       let result = await axios.post(
-        "/api/f/notes",
+        URL,
         {
           roomCode: roomCode,
         },
