@@ -12,7 +12,6 @@ export default function StudentRequest(props) {
               : "You have no student request"
           }`}</th>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -30,7 +29,6 @@ export default function StudentRequest(props) {
                   <span className="ms-3">{std.name}</span>
                 </div>
               </td>
-              <td>{std.email}</td>
               <td>
                 <button className="cancel-btn btn">Cancel</button>
                 <button

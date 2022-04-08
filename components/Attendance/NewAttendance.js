@@ -39,7 +39,7 @@ export default function NewAttendance() {
         timer: 1500,
       });
     }
-  }, [attendanceSuccess]);
+  }, [attendanceSuccess, flag]);
 
   return (
     <div className="new-attendance">
@@ -90,16 +90,18 @@ export default function NewAttendance() {
                 ))}
             </tbody>
           </Table>
-          <Button
-            varient="primary"
-            className="mt-4"
-            disabled={loading}
-            onClick={() =>
-              submitAttendanceHandler(currentAttendance, roomCode, token)
-            }
-          >
-            Submit
-          </Button>
+          {currentAttendance.length > 0 && (
+            <Button
+              varient="primary"
+              className="mt-4"
+              disabled={loading}
+              onClick={() =>
+                submitAttendanceHandler(currentAttendance, roomCode, token)
+              }
+            >
+              Submit
+            </Button>
+          )}
         </>
       ) : (
         <p>No Student Added...</p>

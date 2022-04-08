@@ -60,9 +60,11 @@ export default function LoginPage() {
             </h3>
             <Row>
               <Col lg="10" className="offset-1 mb-2">
-                <label>{`Email (${
-                  userType === "faculty" ? "f@f.com" : "s@s.com"
-                })`}</label>
+                <label>{`Email ( ${
+                  userType === "faculty"
+                    ? "karim@gmail.com"
+                    : "forhad@gmail.com"
+                } )`}</label>
                 <input
                   type="text"
                   {...register("email")}

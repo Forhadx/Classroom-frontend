@@ -25,7 +25,7 @@ export default function FacultyLayout(props) {
     if (token && roomCode) {
       fetchAllTeamStudents(roomCode, token);
     }
-  }, [roomCode, token]);
+  }, [roomCode, token, fetchAllTeamStudents]);
 
   useEffect(() => {
     if (teamStudents.length > 0) {
@@ -52,7 +52,7 @@ export default function FacultyLayout(props) {
         </Col>
       </Row>
       <Row>
-        <Col lg="4">
+        <Col lg="4" md="3" className="mb-4 sm-mb-0">
           <ul className="room-sidebar">
             <li>
               <Link href={`/faculty/rooms/${roomCode}`}>
@@ -94,7 +94,9 @@ export default function FacultyLayout(props) {
             </li>
           </ul>
         </Col>
-        <Col lg="8">{props.children}</Col>
+        <Col lg="8" md="7">
+          {props.children}
+        </Col>
       </Row>
     </Container>
   );

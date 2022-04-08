@@ -53,7 +53,7 @@ export default function NoteUpload({ setIsWrite, roomCode, addNoteToRoom }) {
         timer: 1500,
       });
     }
-  }, [loading, error]);
+  }, [loading, error, flag]);
 
   return (
     <form onSubmit={formHandler}>

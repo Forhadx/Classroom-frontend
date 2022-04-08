@@ -65,7 +65,7 @@ export default function SignupPage() {
       router.push("/login");
     }
     autoUserType();
-  }, [authSuccess, autoUserType]);
+  }, [authSuccess, autoUserType, router]);
 
   return (
     <Container className="auth-page">

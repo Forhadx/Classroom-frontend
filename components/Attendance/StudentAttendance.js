@@ -8,7 +8,7 @@ export default function StudentAttendance(props) {
   return (
     <div className="student-history-table">
       {attendaceDetails ? (
-        <Table hover className="student-table w-100">
+        <Table hover responsive className="student-table w-100">
           <thead>
             <tr>
               <th>Class no</th>
@@ -33,7 +33,7 @@ export default function StudentAttendance(props) {
           </tbody>
         </Table>
       ) : (
-        <h6>This Classroom doesn't take any attendace.</h6>
+        <h6>This Classroom does not take any attendace.</h6>
       )}
     </div>
   );

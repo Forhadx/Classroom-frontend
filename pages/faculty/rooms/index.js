@@ -25,7 +25,7 @@ export default function RoomsPage() {
     if (token && userType) {
       fetchAllRooms(token, userType);
     }
-  }, [token, userType]);
+  }, [token, userType, fetchAllRooms]);
 
   const singleRoomHandler = (roomCode) => {
     router.push(`/faculty/rooms/${roomCode}`);

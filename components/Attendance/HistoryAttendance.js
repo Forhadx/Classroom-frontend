@@ -22,7 +22,7 @@ export default function HistoryAttendance() {
     if (token && roomCode) {
       fetchAllAttendanceList(roomCode, token);
     }
-  }, [roomCode, token]);
+  }, [roomCode, token, fetchAllAttendanceList]);
 
   useEffect(() => {
     if (attendanceList) {

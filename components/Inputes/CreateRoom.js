@@ -44,7 +44,7 @@ export default function CreateRoom(props) {
     if (!flag) {
       initAddFacultyRoom();
     }
-  }, [initAddFacultyRoom]);
+  }, [initAddFacultyRoom, flag]);
 
   useEffect(() => {
     if (!errorMsg && flag && !loading) {
@@ -52,7 +52,7 @@ export default function CreateRoom(props) {
       reset();
       closeModalhandler();
     }
-  }, [errorMsg, closeModalhandler]);
+  }, [errorMsg, closeModalhandler, flag, loading]);
 
   return (
     <Form onSubmit={handleSubmit(formSubmitHandler)} className="modal-form">

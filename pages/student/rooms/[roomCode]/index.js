@@ -80,7 +80,7 @@ export default function SingleRoomPage() {
           ) : (
             <Card className="note-card">
               <Card.Body>
-                <h6>The faculty haven't published any notes.</h6>
+                <h6>The faculty have not published any notes.</h6>
               </Card.Body>
             </Card>
           )}

@@ -28,7 +28,7 @@ export default function RoomStudents(props) {
                 <span className="ms-3">{std.name}</span>
               </div>
             </td>
-            <td>{std.email}</td>
+            <td className="text-lowercase">{std.email}</td>
             <td>{moment(std.createdAt).format("ll")}</td>
             {/* <td>
               <div className="remove-students">
